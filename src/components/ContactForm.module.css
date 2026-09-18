@@ -1,0 +1,81 @@
+.form {
+  display: grid;
+  gap: var(--is-space-5);
+  max-width: 680px;
+}
+
+.row {
+  display: grid;
+  gap: var(--is-space-5);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--is-space-2);
+}
+
+.field label {
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--is-steel);
+}
+
+.field input,
+.field select,
+.field textarea {
+  background: var(--is-charcoal);
+  border: 1px solid var(--is-line-strong);
+  border-radius: var(--is-radius);
+  padding: 14px 16px;
+  min-height: 44px;
+  color: var(--is-ivory);
+}
+
+.field textarea {
+  resize: vertical;
+}
+
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible {
+  border-color: var(--is-orange);
+}
+
+.feelingField label {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.4rem;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--is-ivory);
+}
+
+.feelingField textarea {
+  min-height: 120px;
+}
+
+.status {
+  padding: var(--is-space-4);
+  border: 1px solid var(--is-line-strong);
+  color: var(--is-ivory-dim);
+}
+
+.status--success {
+  border-color: var(--is-orange);
+  color: var(--is-ivory);
+}
+
+.fallback {
+  margin-top: var(--is-space-6);
+  padding-top: var(--is-space-6);
+  border-top: 1px solid var(--is-line);
+}

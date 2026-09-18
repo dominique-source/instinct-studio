@@ -1,0 +1,22 @@
+.header {
+  max-width: 60ch;
+}
+
+.grid {
+  margin-top: var(--is-space-8);
+  display: grid;
+  gap: var(--is-space-6);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

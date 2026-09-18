@@ -1,0 +1,59 @@
+.intro {
+  max-width: 60ch;
+}
+
+.stepGrid {
+  margin-top: var(--is-space-8);
+}
+
+.caseStudyLede {
+  margin-top: var(--is-space-4);
+}
+
+.caseStudy {
+  margin-top: var(--is-space-9);
+  padding-top: var(--is-space-8);
+  border-top: 1px solid var(--is-line);
+}
+
+.caseStudyHeader {
+  max-width: 60ch;
+  margin-bottom: var(--is-space-8);
+}
+
+.stages {
+  display: grid;
+  gap: 0;
+}
+
+.stage {
+  display: grid;
+  gap: var(--is-space-4);
+  grid-template-columns: 1fr;
+  padding-block: var(--is-space-6);
+  border-top: 1px solid var(--is-line);
+}
+
+@media (min-width: 768px) {
+  .stage {
+    grid-template-columns: 200px 1fr;
+  }
+}
+
+.stageStep {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.4rem;
+  color: var(--is-orange);
+}
+
+.stageLabel {
+  color: var(--is-ivory);
+  font-size: 1.1rem;
+  margin-bottom: var(--is-space-2);
+}
+
+.stageDetail {
+  color: var(--is-ivory-dim);
+  max-width: 62ch;
+}

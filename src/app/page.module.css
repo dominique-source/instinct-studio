@@ -1,0 +1,185 @@
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  padding-block: var(--is-space-9) var(--is-space-8);
+  background:
+    linear-gradient(180deg, rgba(10, 9, 8, 0.35) 0%, rgba(10, 9, 8, 0.92) 78%),
+    radial-gradient(120% 90% at 15% 10%, var(--is-charcoal) 0%, var(--is-black) 60%);
+  overflow: hidden;
+}
+
+.heroLines {
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.heroInner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--is-space-6);
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--is-space-4);
+  margin-top: var(--is-space-3);
+}
+
+.heroSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--is-space-2);
+}
+
+/* --------------------------- Statement --------------------------- */
+
+.statement {
+  text-align: center;
+}
+
+.statementText {
+  max-width: 20ch;
+  margin-inline: auto;
+}
+
+/* ----------------------------- Films ------------------------------ */
+
+.filmsHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--is-space-4);
+  margin-bottom: var(--is-space-7);
+}
+
+.featuredGrid {
+  display: grid;
+  gap: var(--is-space-6);
+  grid-template-columns: 1fr;
+  margin-bottom: var(--is-space-7);
+}
+
+@media (min-width: 900px) {
+  .featuredGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.secondaryGrid {
+  display: grid;
+  gap: var(--is-space-5);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .secondaryGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .secondaryGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ------------------------------ Team ------------------------------- */
+
+.teamIntro {
+  max-width: 60ch;
+  margin-bottom: var(--is-space-8);
+}
+
+.teamGrid {
+  display: grid;
+  gap: var(--is-space-7);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .teamGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ----------------------------- Method ------------------------------ */
+
+.methodHeader {
+  max-width: 60ch;
+  margin-bottom: var(--is-space-8);
+}
+
+.methodVisual {
+  margin-top: var(--is-space-8);
+  border: 1px solid var(--is-line);
+  background: var(--is-charcoal);
+  padding: var(--is-space-7);
+  display: grid;
+  gap: var(--is-space-4);
+}
+
+@media (min-width: 768px) {
+  .methodVisual {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+  }
+}
+
+.methodVisualCaption {
+  color: var(--is-steel);
+}
+
+/* ---------------------------- Services ------------------------------ */
+
+.servicesHeader {
+  max-width: 60ch;
+  margin-bottom: var(--is-space-7);
+}
+
+.servicesList {
+  display: grid;
+  gap: var(--is-space-4);
+  grid-template-columns: 1fr;
+  border-top: 1px solid var(--is-line);
+}
+
+@media (min-width: 768px) {
+  .servicesList {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.serviceItem {
+  padding: var(--is-space-4) 0;
+  border-bottom: 1px solid var(--is-line);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--is-ivory);
+}
+
+/* ----------------------------- Contact CTA -------------------------- */
+
+.ctaSection {
+  text-align: center;
+  border-top: 1px solid var(--is-line);
+}
+
+.ctaStatement {
+  max-width: 22ch;
+  margin-inline: auto;
+}
+
+.ctaActions {
+  margin-top: var(--is-space-6);
+  display: flex;
+  justify-content: center;
+}

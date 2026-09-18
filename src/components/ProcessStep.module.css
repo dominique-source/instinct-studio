@@ -1,0 +1,35 @@
+.grid {
+  display: grid;
+  gap: var(--is-space-6);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.step {
+  border-top: 1px solid var(--is-line-strong);
+  padding-top: var(--is-space-4);
+}
+
+.number {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 2.2rem;
+  color: var(--is-orange);
+}
+
+.title {
+  margin-top: var(--is-space-3);
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  color: var(--is-ivory);
+}
+
+.description {
+  margin-top: var(--is-space-2);
+  color: var(--is-ivory-dim);
+}

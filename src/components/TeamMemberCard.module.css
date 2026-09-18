@@ -1,0 +1,82 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--is-space-4);
+}
+
+.portraitWrap {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--is-charcoal);
+  border: 1px solid var(--is-line);
+}
+
+.portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.name {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: var(--is-ivory);
+}
+
+.title {
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  color: var(--is-orange-bright);
+  text-transform: uppercase;
+  margin-top: var(--is-space-1);
+}
+
+.short {
+  color: var(--is-ivory-dim);
+  margin-top: var(--is-space-3);
+}
+
+.long {
+  color: var(--is-ivory-dim);
+  margin-top: var(--is-space-4);
+  line-height: 1.7;
+}
+
+.quote {
+  margin-top: var(--is-space-5);
+  padding-left: var(--is-space-4);
+  border-left: 2px solid var(--is-orange);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--is-ivory);
+}
+
+.quote span {
+  display: block;
+}
+
+.resident {
+  display: grid;
+  gap: var(--is-space-6);
+  align-items: center;
+  border-top: 1px solid var(--is-line);
+  padding-top: var(--is-space-7);
+  margin-top: var(--is-space-8);
+}
+
+@media (min-width: 768px) {
+  .resident {
+    grid-template-columns: 180px 1fr;
+  }
+}
+
+.residentPortraitWrap {
+  width: 140px;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--is-charcoal);
+  border: 1px solid var(--is-line);
+}

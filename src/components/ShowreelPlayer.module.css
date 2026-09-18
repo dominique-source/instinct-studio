@@ -1,0 +1,136 @@
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--is-space-3);
+}
+
+.playIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  flex: none;
+}
+
+.dialog {
+  padding: 0;
+  border: none;
+  max-width: min(1100px, 92vw);
+  width: 100%;
+  background: var(--is-black);
+  color: var(--is-ivory);
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.7);
+}
+
+.dialog::backdrop {
+  background: rgba(6, 5, 4, 0.9);
+}
+
+.frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  background: var(--is-charcoal);
+  overflow: hidden;
+}
+
+.media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.comingSoon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--is-space-3);
+  background: linear-gradient(180deg, rgba(10, 9, 8, 0.35), rgba(10, 9, 8, 0.85));
+  text-align: center;
+  padding: var(--is-space-5);
+}
+
+.comingSoonTitle {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  color: var(--is-ivory);
+}
+
+.closeButton {
+  position: absolute;
+  top: var(--is-space-4);
+  right: var(--is-space-4);
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 9, 8, 0.6);
+  border: 1px solid var(--is-line-strong);
+  color: var(--is-ivory);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: var(--is-space-4);
+  padding: var(--is-space-4) var(--is-space-5);
+  background: var(--is-charcoal);
+}
+
+.controlButton {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--is-line-strong);
+  color: var(--is-ivory);
+}
+
+.controlButton:hover {
+  border-color: var(--is-orange);
+}
+
+.progress {
+  flex: 1;
+  appearance: none;
+  height: 3px;
+  background: var(--is-line-strong);
+  cursor: pointer;
+}
+
+.progress::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--is-orange);
+  margin-top: -5.5px;
+}
+
+.progress::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: none;
+  border-radius: 50%;
+  background: var(--is-orange);
+}
+
+.time {
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.8rem;
+  color: var(--is-steel);
+  min-width: 92px;
+  text-align: right;
+}

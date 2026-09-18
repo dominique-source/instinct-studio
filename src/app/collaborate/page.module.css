@@ -1,0 +1,7 @@
+.intro {
+  max-width: 60ch;
+}
+
+.layout {
+  margin-top: var(--is-space-8);
+}
