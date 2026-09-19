@@ -224,38 +224,38 @@ Szary" — and playback opens in an accessible on-site modal
 trigger, unmounts on close so playback stops, never autoplays, never
 redirects to vimeo.com).
 
-Film data lives in `src/data/stef-films.ts`:
+Film data lives in `src/data/stef-films.ts`. Posters are real frames
+supplied directly (not fetched from Vimeo) and copied into stable public
+paths, one per film, each with its own `objectPosition` tuned so the
+subject is never cropped:
 
 ```ts
 export const stefFilms: StefFilm[] = [
-  { vimeoId: "1137745395", order: 1, title: "Film 01", poster: "/media/stef-selected-work/stef-film-01.jpg" },
-  { vimeoId: "1070832290", order: 2, title: "Film 02", poster: "/media/stef-selected-work/stef-film-02.jpg" },
-  { vimeoId: "423787947",  order: 3, title: "Film 03", poster: "/media/stef-selected-work/stef-film-03.jpg" },
-  { vimeoId: "1036039287", order: 4, title: "Film 04", poster: "/media/stef-selected-work/stef-film-04.jpg" },
+  { vimeoId: "1137745395", order: 1, title: "Film 01", poster: "/media/stef-selected-work/stef-film-01-georgia-ellenwood.png", objectPosition: "center center" },
+  { vimeoId: "1070832290", order: 2, title: "Film 02", poster: "/media/stef-selected-work/stef-film-02-snowmobile.png",        objectPosition: "center center" },
+  { vimeoId: "423787947",  order: 3, title: "Film 03", poster: "/media/stef-selected-work/stef-film-03-desert.png",            objectPosition: "65% center" },
+  { vimeoId: "1036039287", order: 4, title: "Film 04", poster: "/media/stef-selected-work/stef-film-04-helly-hansen.png",      objectPosition: "70% center" },
 ];
 ```
 
-**Known gap — Vimeo metadata/thumbnails not yet fetched.** This environment's
-network policy blocks `vimeo.com` (confirmed via both `WebFetch` and a raw
-`curl` CONNECT, `403`), so Vimeo's oEmbed endpoint
-(`https://vimeo.com/api/oembed.json?url=...`) could not be reached to
-confirm real titles, durations or thumbnails for any of the four films. Per
-spec, nothing was guessed: each film shows the required "Film 0N" fallback
-title, no duration badge, and `StefFilmFrame` falls back to a plain
-text title on a dark panel (never a broken image or a generic placeholder)
-until a real poster exists. To finish this from a machine that can reach
-Vimeo:
+Each poster is shown in full color at all times (no grayscale, no strong
+overlay) via `next/image` with `fill` + `object-fit: cover`, a consistent
+16:9 aspect ratio across all four frames, and a light bottom scrim only for
+text legibility. `StefFilmFrame` still checks `publicFileExists()` and
+falls back to a plain "Film 0N" text panel — never a broken image or a
+generic placeholder — if a poster file is ever missing.
 
-1. For each URL, fetch `https://vimeo.com/api/oembed.json?url=<vimeo-url>`
-   and note its `title`, `duration` and `thumbnail_url` (request the
-   largest size, e.g. append `&width=1920`).
-2. Download the thumbnail and save it at the exact stable path already
-   referenced in `stef-films.ts` (`public/media/stef-selected-work/stef-film-01.jpg`
-   through `-04.jpg`) — no code change needed, `StefFilmFrame` picks it up
-   automatically via `publicFileExists()`.
-3. Update `title` (and `duration`, formatted `m:ss`) in `stef-films.ts` for
-   any film whose real title was confirmed — leave any unconfirmed one on
-   its "Film 0N" fallback rather than guessing.
+**Known gap — Vimeo titles/durations.** This environment's network policy
+blocks `vimeo.com` (confirmed via both `WebFetch` and a raw `curl` CONNECT,
+`403`), so Vimeo's oEmbed endpoint
+(`https://vimeo.com/api/oembed.json?url=...`) could not be reached to
+confirm real titles or durations for any of the four films. Per spec,
+nothing was guessed: each film shows the required "Film 0N" fallback title
+and no duration badge. To finish this from a machine that can reach Vimeo,
+fetch `https://vimeo.com/api/oembed.json?url=<vimeo-url>` for each film and
+update `title` (and `duration`, formatted `m:ss`) in `stef-films.ts` for any
+whose real title was confirmed — leave any unconfirmed one on its "Film 0N"
+fallback rather than guessing.
 
 ### `festival-kaz.mp4`
 
@@ -316,9 +316,10 @@ variables above in your hosting provider's dashboard.
 
 ## What's still open
 
-- **Stef Szary Vimeo metadata/thumbnails** — see "Moving Film Wall" above.
+- **Stef Szary Vimeo titles/durations** — see "Moving Film Wall" above.
   `vimeo.com` is blocked by this environment's network egress policy, so all
-  four films show the "Film 0N" fallback title with no local poster yet.
+  four films still show the "Film 0N" fallback title (real posters are in
+  place).
 - Four of the six Prime Video titles couldn't be reliably confirmed
   (`hPLfmAOFkKc`, `KDz1gF3xGPE`, `N4ec8bJfsoc`, `JgSlbz9942M`) and show as
   "Prime Video 0N" rather than a guessed title. Add the real title to

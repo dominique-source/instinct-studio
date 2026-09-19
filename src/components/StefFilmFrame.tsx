@@ -65,7 +65,9 @@ export function StefFilmFrame({
           alt=""
           fill
           sizes="(min-width: 900px) 70vw, 100vw"
+          quality={85}
           className={styles.poster}
+          style={{ objectPosition: film.objectPosition }}
         />
       ) : (
         <div className={styles.fallback} aria-hidden="true">
