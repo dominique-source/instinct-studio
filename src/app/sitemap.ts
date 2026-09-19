@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/data/site";
-import { publishedFilms } from "@/data/films";
+import { primeVideos } from "@/data/prime-videos";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -12,10 +12,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${site.url}/privacy`, changeFrequency: "yearly", priority: 0.2 },
   ];
 
-  const filmRoutes: MetadataRoute.Sitemap = publishedFilms.map((film) => ({
-    url: `${site.url}/films/${film.slug}`,
+  const filmRoutes: MetadataRoute.Sitemap = primeVideos.map((video) => ({
+    url: `${site.url}/films/${video.slug}`,
     changeFrequency: "monthly",
-    priority: film.featured ? 0.8 : 0.6,
+    priority: video.featured ? 0.8 : 0.6,
   }));
 
   return [...staticRoutes, ...filmRoutes];

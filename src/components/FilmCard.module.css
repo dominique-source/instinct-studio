@@ -78,10 +78,6 @@
   color: var(--is-blue-bright);
 }
 
-.meta {
-  margin-top: var(--is-space-1);
-}
-
 .card--featured .mediaWrap {
   aspect-ratio: 16 / 9;
 }

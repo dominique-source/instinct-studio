@@ -6,7 +6,7 @@ import { TeamMemberCard, ResidentStrip } from "@/components/TeamMemberCard";
 import { ProcessStepGrid } from "@/components/ProcessStep";
 import { Reveal } from "@/components/Reveal";
 import { site } from "@/data/site";
-import { featuredFilms, secondaryFilms } from "@/data/films";
+import { featuredPrimeVideos, secondaryPrimeVideos } from "@/data/prime-videos";
 import { founders, resident } from "@/data/team";
 import { processTitle, processStatement, processSteps } from "@/data/process";
 import { servicesTitle, servicesSubtitle, services } from "@/data/services";
@@ -20,9 +20,9 @@ export default function HomePage() {
         <div className="container">
           <div className={styles.filmsHeader}>
             <div>
-              <p className="eyebrow">Selected films</p>
+              <p className="eyebrow">Prime Videos</p>
               <h2 id="films-heading" className="display display--md">
-                The work
+                Six selected films
               </h2>
             </div>
             <Link href="/films" className="btn btn--ghost">
@@ -30,18 +30,18 @@ export default function HomePage() {
             </Link>
           </div>
 
-          {featuredFilms.length > 0 && (
+          {featuredPrimeVideos.length > 0 && (
             <div className={styles.featuredGrid}>
-              {featuredFilms.map((film) => (
-                <FilmCard key={film.id} film={film} featured />
+              {featuredPrimeVideos.map((video) => (
+                <FilmCard key={video.youtubeId} video={video} featured />
               ))}
             </div>
           )}
 
-          {secondaryFilms.length > 0 && (
+          {secondaryPrimeVideos.length > 0 && (
             <div className={styles.secondaryGrid}>
-              {secondaryFilms.map((film) => (
-                <FilmCard key={film.id} film={film} />
+              {secondaryPrimeVideos.map((video) => (
+                <FilmCard key={video.youtubeId} video={video} />
               ))}
             </div>
           )}
