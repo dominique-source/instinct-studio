@@ -142,9 +142,9 @@
     display: block;
     position: absolute;
     z-index: 2;
-    left: 36%;
-    bottom: 4%;
-    width: 130px;
+    right: 26%;
+    top: 1%;
+    width: 100px;
   }
 }
 
@@ -156,7 +156,7 @@
   margin-top: var(--is-space-8);
   display: grid;
   row-gap: var(--is-space-9);
-  grid-template-areas: "dominique" "stefan" "neil" "youri";
+  grid-template-areas: "dominique" "stefan" "neil";
 }
 
 .memberSlot {
@@ -175,17 +175,13 @@
   grid-area: neil;
 }
 
-.memberSlot[data-member="youri-hainz"] {
-  grid-area: youri;
-}
-
 @media (min-width: 768px) and (max-width: 1023px) {
   .collage {
     column-gap: var(--is-space-7);
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
       "dominique stefan"
-      "neil youri";
+      "neil neil";
   }
 }
 
@@ -201,32 +197,28 @@
     position: absolute;
   }
 
+  /* Dominique -> Stefan -> Neil, left to right. Stefan takes the room
+     Youri used to occupy and carries the strongest z-index so neither
+     neighbour's fragments ever paint over his face. */
   .memberSlot[data-member="dominique-soucy"] {
     left: 0;
     bottom: 0;
-    width: 33%;
-    z-index: 5;
+    width: 28%;
+    z-index: 4;
   }
 
   .memberSlot[data-member="stefan-szary"] {
-    left: 32%;
-    top: 0;
-    width: 20%;
-    z-index: 3;
+    left: 29%;
+    top: 6%;
+    width: 34%;
+    z-index: 8;
   }
 
   .memberSlot[data-member="neil-frisby"] {
-    left: 45%;
-    top: 30%;
-    width: 24%;
-    z-index: 7;
-  }
-
-  .memberSlot[data-member="youri-hainz"] {
-    right: 1%;
-    top: 3%;
-    width: 23%;
-    z-index: 4;
+    right: 2%;
+    top: 16%;
+    width: 22%;
+    z-index: 5;
   }
 }
 
@@ -242,30 +234,6 @@
   opacity: 0.45;
 }
 
-/* Youri's activation briefly separates his own fragments, then they settle. */
-@keyframes shatterReassemble {
-  0% {
-    transform: translate3d(0, 0, 0) rotate(var(--rotate, 0deg));
-  }
-  30% {
-    transform: translate3d(calc(var(--gx, 0px) - 10px), calc(var(--gy, 0px) - 6px), 0)
-      rotate(calc(var(--rotate, 0deg) - 4deg));
-  }
-  60% {
-    transform: translate3d(calc(var(--gx, 0px) + 8px), calc(var(--gy, 0px) + 5px), 0)
-      rotate(calc(var(--rotate, 0deg) + 3deg));
-  }
-  100% {
-    transform: translate3d(var(--gx, 0px), var(--gy, 0px), 0) rotate(var(--rotate, 0deg));
-  }
-}
-
-.collage[data-active="youri-hainz"] [data-member="youri-hainz"] .filmSlot,
-.collage[data-active="youri-hainz"] [data-member="youri-hainz"] .extraFilmSlot,
-.collage[data-active="youri-hainz"] [data-member="youri-hainz"] .noteSlot {
-  animation: shatterReassemble 640ms var(--is-ease);
-}
-
 /* Stefan's activation sharpens his film fragment. */
 .collage[data-active="stefan-szary"] [data-member="stefan-szary"] .filmSlot img {
   filter: contrast(1.25) brightness(1.08) saturate(1.05);
@@ -274,11 +242,5 @@
 @media (prefers-reduced-motion: reduce) {
   .collage[data-active="neil-frisby"] [data-member]:not([data-member="neil-frisby"]) {
     opacity: 1;
-  }
-
-  .collage[data-active="youri-hainz"] [data-member="youri-hainz"] .filmSlot,
-  .collage[data-active="youri-hainz"] [data-member="youri-hainz"] .extraFilmSlot,
-  .collage[data-active="youri-hainz"] [data-member="youri-hainz"] .noteSlot {
-    animation: none;
   }
 }

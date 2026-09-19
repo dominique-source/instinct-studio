@@ -127,14 +127,14 @@
 
 @media (min-width: 768px) {
   [data-member="dominique-soucy"] .filmSlot {
-    right: -22%;
-    bottom: 14%;
-    width: 55%;
+    right: 2%;
+    bottom: 26%;
+    width: 32%;
   }
 
   [data-member="dominique-soucy"] .extraFilmSlot {
     left: -15%;
-    bottom: -8%;
+    bottom: -22%;
     width: 48%;
   }
 
@@ -143,16 +143,23 @@
     left: -14%;
   }
 
+  /* Stefan carries the highest z-index in FourMindsSection.module.css, so
+     his own fragments are the only thing that could cover his face — kept
+     small and off to the side (never centered over the portrait). */
   [data-member="stefan-szary"] .filmSlot {
-    right: -55%;
-    top: 10%;
-    width: 75%;
+    right: -35%;
+    top: 8%;
+    width: 45%;
   }
 
   [data-member="stefan-szary"] .noteSlot {
-    left: -18%;
-    bottom: -16%;
-    width: 46%;
+    left: -28%;
+    top: 55%;
+    width: 30%;
+  }
+
+  [data-member="stefan-szary"] .portraitWrap {
+    aspect-ratio: 4 / 4.4;
   }
 
   [data-member="neil-frisby"] .filmSlot {
@@ -165,30 +172,6 @@
     left: -24%;
     top: 32%;
     width: 46%;
-  }
-
-  [data-member="youri-hainz"] .filmSlot {
-    right: -8%;
-    top: -18%;
-    width: 65%;
-  }
-
-  [data-member="youri-hainz"] .extraFilmSlot {
-    left: -28%;
-    bottom: -10%;
-    width: 42%;
-  }
-
-  [data-member="youri-hainz"] .noteSlot {
-    right: -8%;
-    bottom: -14%;
-    width: 42%;
-  }
-
-  [data-member="youri-hainz"] .extraNoteSlot {
-    left: -8%;
-    top: 58%;
-    width: 40%;
   }
 }
 

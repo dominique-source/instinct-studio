@@ -56,7 +56,7 @@
 
 .pulse {
   fill: var(--is-blue-bright);
-  offset-path: path("M20.8,73.8 L73.6,14.4 L86.4,48.6 L137.6,21.6");
+  offset-path: path("M17.9,57.3 L68.2,50.3 L135.7,47.4");
   offset-distance: 0%;
   opacity: 0;
   transition: offset-distance 650ms var(--is-ease), opacity 220ms linear;

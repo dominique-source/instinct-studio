@@ -1,16 +1,22 @@
 /**
- * "Four Minds. One Frequency." — the homepage Team section.
+ * "Three Minds. One Instinct." — the homepage Team section.
  * Source of truth: the approved maquette and animation-concept archived at
  * public/media/team-frequency/reference/. Real portraits and the essential
  * name/role/description copy come from src/data/team.ts (the same source
  * the Studio page uses) — the ZIP's portrait-*-reference.png crops
  * (archived at public/media/team-frequency/profiles/) are composition
  * references only and are never used in production.
+ *
+ * Youri Hainz is temporarily out of this section (not the site — his data
+ * stays in src/data/team.ts and his visuals entry stays below) while the
+ * composition runs as Dominique -> Stefan -> Neil. Re-adding him later is
+ * just adding "youri-hainz" back to FourMindsSection.tsx's member list and
+ * extending the signal path/positions.
  */
 
 export const fourMindsEyebrow = "PEOPLE × STORY × MOTION";
-export const fourMindsHeadlineLine1 = "FOUR MINDS.";
-export const fourMindsHeadlineLine2 = "ONE FREQUENCY.";
+export const fourMindsHeadlineLine1 = "THREE MINDS.";
+export const fourMindsHeadlineLine2 = "ONE INSTINCT.";
 export const fourMindsSupportingStatement = "Different perspectives. A higher frequency.";
 export const fourMindsCompletionLine = "DIFFERENT MINDS. ONE CREATIVE FORCE.";
 

@@ -8,7 +8,7 @@ import { FrequencySignal } from "./FrequencySignal";
 import { FrequencyLens } from "./FrequencyLens";
 import { useInView } from "@/lib/useInView";
 import { usePointerField } from "@/lib/usePointerField";
-import { founders, resident } from "@/data/team";
+import { founders } from "@/data/team";
 import {
   fourMindsEyebrow,
   fourMindsHeadlineLine1,
@@ -20,19 +20,21 @@ import {
   type FourMindsMemberId,
 } from "@/data/four-minds";
 
-// Dominique + Stefan + Neil (the founders) and Youri (the resident) belong
-// to one composition — see the maquette: Youri is never a separate strip
-// underneath the other three.
-const fourMindsMembers: FourMindsMember[] = [...founders, resident].map((member) => ({
+/** The three people currently in this composition — see four-minds.ts for why Youri is out. */
+export type ActiveMemberId = Exclude<FourMindsMemberId, "youri-hainz">;
+
+// Dominique, Stefan and Neil (the founders) belong to one composition:
+// Dominique -> Stefan -> Neil, left to right.
+const fourMindsMembers: FourMindsMember[] = founders.map((member) => ({
   ...member,
-  ...fourMindsVisualsById[member.id as FourMindsMemberId],
+  ...fourMindsVisualsById[member.id as ActiveMemberId],
 }));
 
 export function FourMindsSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const { ref: introRef, inView: introVisible } = useInView<HTMLDivElement>(0.3);
 
-  const [activeId, setActiveId] = useState<FourMindsMemberId | null>(null);
+  const [activeId, setActiveId] = useState<ActiveMemberId | null>(null);
   const activatedRef = useRef<Set<string>>(new Set());
   const [completed, setCompleted] = useState(false);
   const [flashCompletion, setFlashCompletion] = useState(false);
@@ -41,7 +43,7 @@ export function FourMindsSection() {
   const registerGravity = usePointerField(sectionRef, 900);
 
   const activate = useCallback(
-    (id: FourMindsMemberId) => {
+    (id: ActiveMemberId) => {
       setActiveId(id);
       if (completed) return;
       activatedRef.current.add(id);
@@ -62,7 +64,7 @@ export function FourMindsSection() {
   // register/cleanup on the pointer field for no reason).
   const gravityRefs = useMemo(() => {
     const entries = {} as Record<
-      FourMindsMemberId,
+      ActiveMemberId,
       {
         portrait: (node: HTMLDivElement | null) => void;
         film: (node: HTMLDivElement | null) => void;
@@ -70,7 +72,7 @@ export function FourMindsSection() {
       }
     >;
     for (const member of fourMindsMembers) {
-      entries[member.id as FourMindsMemberId] = {
+      entries[member.id as ActiveMemberId] = {
         portrait: (node) => registerGravity(node, 3),
         film: (node) => registerGravity(node, 6),
         note: (node) => registerGravity(node, 4, 2),
@@ -143,11 +145,11 @@ export function FourMindsSection() {
               key={member.id}
               member={member}
               isActive={activeId === member.id}
-              onActivate={() => activate(member.id as FourMindsMemberId)}
+              onActivate={() => activate(member.id as ActiveMemberId)}
               onDeactivate={deactivate}
-              gravityRef={gravityRefs[member.id as FourMindsMemberId].portrait}
-              filmGravityRef={gravityRefs[member.id as FourMindsMemberId].film}
-              noteGravityRef={gravityRefs[member.id as FourMindsMemberId].note}
+              gravityRef={gravityRefs[member.id as ActiveMemberId].portrait}
+              filmGravityRef={gravityRefs[member.id as ActiveMemberId].film}
+              noteGravityRef={gravityRefs[member.id as ActiveMemberId].note}
             />
           ))}
 
@@ -191,8 +193,8 @@ export function FourMindsSection() {
         </div>
 
         <p className="sr-only">
-          Four minds, one frequency: {fourMindsMembers.map((m) => `${m.name}, ${m.title}`).join("; ")} —
-          different perspectives working at one creative frequency.
+          Three minds, one instinct: {fourMindsMembers.map((m) => `${m.name}, ${m.title}`).join("; ")} —
+          different perspectives working as one shared instinct.
         </p>
       </div>
     </section>
