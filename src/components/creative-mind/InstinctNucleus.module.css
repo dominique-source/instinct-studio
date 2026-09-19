@@ -13,6 +13,12 @@
     transform var(--is-dur-slow) var(--is-ease);
 }
 
+@media (min-width: 1024px) {
+  .nucleus {
+    padding-block: var(--is-space-6) var(--is-space-2);
+  }
+}
+
 .nucleus.isVisible {
   opacity: 1;
   transform: none;

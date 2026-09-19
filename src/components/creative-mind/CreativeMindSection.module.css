@@ -89,6 +89,15 @@
   grid-area: culturalImpact;
 }
 
+/* Groups Signal + INSTINCT + Visual Language into one flowing center
+   column at desktop, so their spacing is real margins/gap we control —
+   not CSS Grid auto-row sizing. At mobile/tablet it steps out of the way
+   (display:contents) so each stage keeps its own place in those grids,
+   exactly as before. */
+.center {
+  display: contents;
+}
+
 @media (min-width: 768px) and (max-width: 1023px) {
   .collage {
     column-gap: var(--is-space-7);
@@ -103,17 +112,19 @@
 @media (min-width: 1024px) {
   .collage {
     column-gap: var(--is-space-8);
-    row-gap: var(--is-space-8);
     grid-template-columns: repeat(12, 1fr);
     align-items: start;
-    grid-template-areas:
-      "humanTruth humanTruth humanTruth humanTruth signal signal signal signal signal culturalImpact culturalImpact culturalImpact"
-      "humanTruth humanTruth humanTruth humanTruth instinct instinct instinct instinct instinct culturalImpact culturalImpact culturalImpact"
-      "humanTruth humanTruth humanTruth humanTruth visualLanguage visualLanguage visualLanguage visualLanguage visualLanguage culturalImpact culturalImpact culturalImpact";
+    grid-template-areas: "humanTruth humanTruth humanTruth humanTruth center center center center center culturalImpact culturalImpact culturalImpact";
   }
 
-  .collage [data-stage="human-truth"],
-  .collage [data-stage="cultural-impact"] {
-    padding-top: var(--is-space-7);
+  .center {
+    display: flex;
+    flex-direction: column;
+    grid-area: center;
+    gap: var(--is-space-4);
+  }
+
+  .center [data-stage="signal"] {
+    margin-bottom: var(--is-space-5);
   }
 }

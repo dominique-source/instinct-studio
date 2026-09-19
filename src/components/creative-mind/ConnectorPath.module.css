@@ -10,7 +10,10 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    z-index: 1;
+    /* No z-index: it stays in normal (source-order) stacking, so every
+       stage block and the INSTINCT word — all later siblings — paint over
+       it. The path can safely pass near or "through" the nucleus and any
+       title without ever visibly crossing text or images. */
     overflow: visible;
   }
 }
@@ -18,9 +21,9 @@
 .segment {
   fill: none;
   stroke: var(--is-blue-bright);
-  stroke-width: 0.35;
+  stroke-width: 1;
   stroke-linecap: round;
-  opacity: 0.85;
+  opacity: 0.7;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
   transition: stroke-dashoffset 700ms var(--is-ease);

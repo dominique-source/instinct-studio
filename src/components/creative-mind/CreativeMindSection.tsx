@@ -23,6 +23,11 @@ export function CreativeMindSection() {
   const bottomLeft = creativeMindSignature.find((s) => s.position === "bottom-left");
   const bottomRight = creativeMindSignature.find((s) => s.position === "bottom-right");
 
+  const humanTruth = creativeMindStages.find((s) => s.id === "human-truth")!;
+  const signal = creativeMindStages.find((s) => s.id === "signal")!;
+  const visualLanguage = creativeMindStages.find((s) => s.id === "visual-language")!;
+  const culturalImpact = creativeMindStages.find((s) => s.id === "cultural-impact")!;
+
   return (
     <section className={`section ${styles.section}`} aria-labelledby="creative-mind-heading">
       <div className="container">
@@ -47,10 +52,13 @@ export function CreativeMindSection() {
 
         <div className={styles.collage}>
           <ConnectorPath />
-          <InstinctNucleus />
-          {creativeMindStages.map((stage) => (
-            <StageBlock key={stage.id} stage={stage} direction={directionByStage[stage.id]} />
-          ))}
+          <StageBlock stage={humanTruth} direction={directionByStage[humanTruth.id]} />
+          <div className={styles.center}>
+            <StageBlock stage={signal} direction={directionByStage[signal.id]} />
+            <InstinctNucleus />
+            <StageBlock stage={visualLanguage} direction={directionByStage[visualLanguage.id]} />
+          </div>
+          <StageBlock stage={culturalImpact} direction={directionByStage[culturalImpact.id]} />
         </div>
 
         <div className={styles.signatureBottom}>

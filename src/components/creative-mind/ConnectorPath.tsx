@@ -47,20 +47,32 @@ export function ConnectorPath() {
         preserveAspectRatio="none"
         aria-hidden="true"
       >
+        {/* Straight segments read as one unbroken path at any aspect ratio —
+            a gentle quadratic curve here goes tangent-flat near its
+            endpoints once the viewBox is stretched non-uniformly
+            (preserveAspectRatio="none"), which made the line look like
+            disconnected fragments instead of one continuous progression. */}
+
+        {/* Human Truth -> Signal, both near the top of the wall. */}
         <path
           className={`${styles.segment} ${drawn.toSignal ? styles.isDrawn : ""}`}
           pathLength={1}
-          d="M17,50 Q35,16 54,12"
+          d="M14,8 L50.5,8"
         />
+        {/* Signal -> past the INSTINCT nucleus (renders behind it, so the
+            line never crosses visibly over the word) -> Visual Language,
+            directly below in the same center column. */}
         <path
           className={`${styles.segment} ${drawn.toVisualLanguage ? styles.isDrawn : ""}`}
           pathLength={1}
-          d="M54,12 Q72,50 54,88"
+          d="M50.5,8 L54,74 L49,88"
         />
+        {/* Visual Language gestures onward toward Cultural Impact — a short,
+            restrained line rather than a long diagonal across the wall. */}
         <path
           className={`${styles.segment} ${drawn.toCulturalImpact ? styles.isDrawn : ""}`}
           pathLength={1}
-          d="M54,88 Q74,80 88,50"
+          d="M49,88 L74,58"
         />
       </svg>
       <div className={styles.mobileLine} aria-hidden="true" />

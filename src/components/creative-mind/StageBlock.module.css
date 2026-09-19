@@ -27,6 +27,15 @@
   }
 }
 
+/* Visual Language sits right under INSTINCT in the shared center column;
+   let its main visual reach up into the nucleus's lower glow instead of
+   leaving a clean gap, so the two read as one connected wall. */
+@media (min-width: 1024px) {
+  [data-stage="visual-language"] .visuals {
+    margin-top: calc(-1 * var(--is-space-6));
+  }
+}
+
 /* ------------------------------ Header ------------------------------ */
 
 .header {
@@ -181,6 +190,52 @@
 [data-stage="cultural-impact"] .extraVisual:nth-of-type(1) {
   left: auto;
   right: -14%;
+}
+
+/* Visual Language's own choreography (per the maquette): the contact
+   sheet stays legible up top, the runner strip sits left, the hands
+   close-up overlaps the contact sheet rather than hiding it, and the
+   camera sketch reaches right, toward Cultural Impact. The main visual
+   here is short and wide (unlike the other stages' taller portraits), so
+   these use fixed offsets rather than the generic percentages above. */
+@media (min-width: 768px) {
+  [data-stage="visual-language"] .secondaryVisual {
+    width: 38%;
+    right: -32%;
+    left: auto;
+    bottom: -20px;
+  }
+
+  [data-stage="visual-language"] .extraVisual:nth-of-type(1) {
+    width: 36%;
+    left: -26%;
+    top: 60px;
+    bottom: auto;
+  }
+
+  [data-stage="visual-language"] .extraVisual:nth-of-type(2) {
+    width: 30%;
+    left: 12%;
+    top: 28px;
+    bottom: auto;
+  }
+
+  [data-stage="visual-language"] .note:nth-of-type(1) {
+    top: -50px;
+    left: -18%;
+  }
+
+  [data-stage="visual-language"] .note:nth-of-type(2) {
+    top: 92px;
+    right: -20%;
+    left: auto;
+  }
+
+  [data-stage="visual-language"] .note:nth-of-type(3) {
+    top: 132px;
+    right: -58%;
+    left: auto;
+  }
 }
 
 /* ------------------------------- Notes ------------------------------- */
