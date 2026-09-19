@@ -1,0 +1,30 @@
+.chapter {
+  margin-block: var(--is-space-8);
+  padding-block: var(--is-space-8);
+  border-top: 1px solid var(--is-line);
+  border-bottom: 1px solid var(--is-line);
+}
+
+.intro {
+  max-width: 60ch;
+  margin-bottom: var(--is-space-7);
+}
+
+.headline {
+  margin-top: var(--is-space-3);
+}
+
+.body {
+  margin-top: var(--is-space-4);
+  color: var(--is-silver);
+  max-width: 52ch;
+}
+
+.sequence {
+  display: grid;
+  gap: var(--is-space-6);
+}
+
+.item + .item {
+  margin-top: var(--is-space-2);
+}

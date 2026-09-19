@@ -5,11 +5,11 @@ import { FilmCard } from "@/components/FilmCard";
 import { TeamMemberCard, ResidentStrip } from "@/components/TeamMemberCard";
 import { ProcessStepGrid } from "@/components/ProcessStep";
 import { Reveal } from "@/components/Reveal";
+import { ServicesFilmWall } from "@/components/ServicesFilmWall";
 import { site } from "@/data/site";
 import { featuredPrimeVideos, secondaryPrimeVideos } from "@/data/prime-videos";
 import { founders, resident } from "@/data/team";
 import { processTitle, processStatement, processSteps } from "@/data/process";
-import { servicesTitle, servicesSubtitle, services } from "@/data/services";
 
 export default function HomePage() {
   return (
@@ -90,24 +90,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section" aria-labelledby="services-heading">
-        <div className="container">
-          <div className={styles.servicesHeader}>
-            <p className="eyebrow">{servicesTitle}</p>
-            <h2 id="services-heading" className="display display--md">
-              {servicesSubtitle}
-            </h2>
-          </div>
-
-          <ul className={styles.servicesList}>
-            {services.map((serviceItem) => (
-              <li key={serviceItem} className={styles.serviceItem}>
-                {serviceItem}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+      <ServicesFilmWall />
 
       <section className={`section ${styles.ctaSection}`}>
         <div className="container">

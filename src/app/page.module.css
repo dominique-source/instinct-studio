@@ -81,37 +81,6 @@
   margin-bottom: var(--is-space-8);
 }
 
-/* ---------------------------- Services ------------------------------ */
-
-.servicesHeader {
-  max-width: 60ch;
-  margin-bottom: var(--is-space-7);
-}
-
-.servicesList {
-  display: grid;
-  gap: var(--is-space-4);
-  grid-template-columns: 1fr;
-  border-top: 1px solid var(--is-line);
-}
-
-@media (min-width: 768px) {
-  .servicesList {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-.serviceItem {
-  padding: var(--is-space-4) 0;
-  border-bottom: 1px solid var(--is-line);
-  font-family: var(--font-display);
-  font-weight: 800;
-  text-transform: uppercase;
-  font-size: 1.05rem;
-  letter-spacing: 0.01em;
-  color: var(--is-white);
-}
-
 /* ----------------------------- Contact CTA -------------------------- */
 
 .ctaSection {
