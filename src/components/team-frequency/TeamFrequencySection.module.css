@@ -1,0 +1,284 @@
+.section {
+  position: relative;
+  background: var(--is-black);
+  overflow: hidden;
+}
+
+.intro {
+  position: relative;
+  z-index: 3;
+  max-width: 56ch;
+}
+
+.headline {
+  margin-top: var(--is-space-3);
+  font-size: clamp(2.2rem, 6vw, 4.6rem);
+}
+
+.line1 {
+  display: block;
+  color: var(--is-white);
+  opacity: 0;
+  filter: blur(6px);
+  transform: translateY(10px);
+  transition: opacity 900ms var(--is-ease), filter 900ms var(--is-ease), transform 900ms var(--is-ease);
+}
+
+.line2 {
+  display: block;
+  color: var(--is-blue-bright);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 700ms var(--is-ease) 450ms, transform 700ms var(--is-ease) 450ms,
+    color 260ms linear;
+}
+
+.intro.isVisible .line1 {
+  opacity: 1;
+  filter: blur(0);
+  transform: none;
+}
+
+.intro.isVisible .line2 {
+  opacity: 1;
+  transform: none;
+}
+
+.line2.flash {
+  color: var(--is-white);
+}
+
+.supportingLine {
+  position: relative;
+  margin-top: var(--is-space-3);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-style: italic;
+  letter-spacing: 0.04em;
+  color: var(--is-silver);
+  opacity: 0;
+  transform: translateY(6px) rotate(-1deg);
+  transition: opacity 600ms var(--is-ease) 700ms, transform 600ms var(--is-ease) 700ms;
+}
+
+.intro.isVisible .supportingLine {
+  opacity: 1;
+  transform: none;
+}
+
+.completionLine {
+  margin-top: var(--is-space-4);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--is-white);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 500ms var(--is-ease), transform 500ms var(--is-ease);
+}
+
+.completionLine.revealed {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .line1,
+  .line2,
+  .supportingLine,
+  .completionLine {
+    transition: opacity 200ms linear;
+    filter: none;
+    transform: none;
+  }
+
+  .intro .line1,
+  .intro .line2,
+  .intro .supportingLine {
+    opacity: 1;
+  }
+}
+
+/* ---------------------------- Signature notes ---------------------------- */
+
+.signatureTopLeft {
+  margin-top: var(--is-space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--is-space-3);
+  max-width: 220px;
+}
+
+.signatureCenter {
+  display: none;
+}
+
+.signatureBottom {
+  position: relative;
+  z-index: 3;
+  margin-top: var(--is-space-8);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: var(--is-space-4);
+}
+
+.signatureBottomItem {
+  width: 180px;
+  max-width: 42vw;
+}
+
+@media (min-width: 1024px) {
+  /* Dominique's bottom-anchored film fragment bleeds a little past the
+     collage's own box (intentional overlap within the collage) — extra
+     clearance here keeps that bleed from colliding with these notes. */
+  .signatureBottom {
+    margin-top: var(--is-space-9);
+  }
+
+  .signatureCenter {
+    display: block;
+    position: absolute;
+    z-index: 2;
+    left: 36%;
+    bottom: 4%;
+    width: 130px;
+  }
+}
+
+/* -------------------------------- Collage -------------------------------- */
+
+.collage {
+  position: relative;
+  z-index: 2;
+  margin-top: var(--is-space-8);
+  display: grid;
+  row-gap: var(--is-space-9);
+  grid-template-areas: "dominique" "stefan" "neil" "youri";
+}
+
+.memberSlot {
+  position: relative;
+}
+
+.memberSlot[data-member="dominique"] {
+  grid-area: dominique;
+}
+
+.memberSlot[data-member="stefan"] {
+  grid-area: stefan;
+}
+
+.memberSlot[data-member="neil"] {
+  grid-area: neil;
+}
+
+.memberSlot[data-member="youri"] {
+  grid-area: youri;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .collage {
+    column-gap: var(--is-space-7);
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "dominique stefan"
+      "neil youri";
+  }
+}
+
+@media (min-width: 1024px) {
+  .collage {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 9;
+    min-height: 560px;
+  }
+
+  .memberSlot {
+    position: absolute;
+  }
+
+  .memberSlot[data-member="dominique"] {
+    left: 0;
+    bottom: 0;
+    width: 33%;
+    z-index: 5;
+  }
+
+  .memberSlot[data-member="stefan"] {
+    left: 32%;
+    top: 0;
+    width: 20%;
+    z-index: 3;
+  }
+
+  .memberSlot[data-member="neil"] {
+    left: 45%;
+    top: 30%;
+    width: 24%;
+    z-index: 7;
+  }
+
+  .memberSlot[data-member="youri"] {
+    right: 1%;
+    top: 3%;
+    width: 23%;
+    z-index: 4;
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1199px) {
+  .extraPeripheral {
+    display: none;
+  }
+}
+
+/* Neil's activation compresses everything else toward stillness. */
+.collage[data-active="neil"] [data-member]:not([data-member="neil"]) {
+  transition: opacity 320ms var(--is-ease);
+  opacity: 0.45;
+}
+
+/* Youri's activation briefly separates his own fragments, then they settle. */
+@keyframes shatterReassemble {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(var(--rotate, 0deg));
+  }
+  30% {
+    transform: translate3d(calc(var(--gx, 0px) - 10px), calc(var(--gy, 0px) - 6px), 0)
+      rotate(calc(var(--rotate, 0deg) - 4deg));
+  }
+  60% {
+    transform: translate3d(calc(var(--gx, 0px) + 8px), calc(var(--gy, 0px) + 5px), 0)
+      rotate(calc(var(--rotate, 0deg) + 3deg));
+  }
+  100% {
+    transform: translate3d(var(--gx, 0px), var(--gy, 0px), 0) rotate(var(--rotate, 0deg));
+  }
+}
+
+.collage[data-active="youri"] [data-member="youri"] .filmSlot,
+.collage[data-active="youri"] [data-member="youri"] .extraFilmSlot,
+.collage[data-active="youri"] [data-member="youri"] .noteSlot {
+  animation: shatterReassemble 640ms var(--is-ease);
+}
+
+/* Stefan's activation sharpens his film fragment. */
+.collage[data-active="stefan"] [data-member="stefan"] .filmSlot img {
+  filter: contrast(1.25) brightness(1.08) saturate(1.05);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .collage[data-active="neil"] [data-member]:not([data-member="neil"]) {
+    opacity: 1;
+  }
+
+  .collage[data-active="youri"] [data-member="youri"] .filmSlot,
+  .collage[data-active="youri"] [data-member="youri"] .extraFilmSlot,
+  .collage[data-active="youri"] [data-member="youri"] .noteSlot {
+    animation: none;
+  }
+}

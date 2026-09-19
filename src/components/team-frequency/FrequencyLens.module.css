@@ -1,0 +1,51 @@
+.processLayer {
+  display: none;
+  pointer-events: none;
+}
+
+@media (min-width: 900px) {
+  .processLayer {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 6;
+    opacity: 0;
+    -webkit-mask-image: radial-gradient(
+      circle var(--lens-radius, 150px) at var(--lens-x, -999px) var(--lens-y, -999px),
+      black 55%,
+      transparent 100%
+    );
+    mask-image: radial-gradient(
+      circle var(--lens-radius, 150px) at var(--lens-x, -999px) var(--lens-y, -999px),
+      black 55%,
+      transparent 100%
+    );
+    transition: opacity 200ms linear;
+  }
+
+  .processLayer.isActive {
+    opacity: 1;
+  }
+}
+
+.portrait {
+  position: absolute;
+  filter: grayscale(1) contrast(1.35) brightness(0.85);
+  object-fit: cover;
+}
+
+.guides {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  stroke: rgba(247, 249, 252, 0.55);
+  fill: none;
+  stroke-width: 0.15;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .processLayer {
+    display: none;
+  }
+}

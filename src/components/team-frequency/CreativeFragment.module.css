@@ -1,0 +1,23 @@
+.fragment {
+  display: block;
+  transform: translate3d(var(--gx, 0px), var(--gy, 0px), 0) rotate(calc(var(--rotate, 0deg) + var(--grot, 0deg)));
+  transition: transform 260ms var(--is-ease), opacity var(--is-dur-slow) var(--is-ease);
+  opacity: 0;
+}
+
+.fragment.isVisible {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fragment {
+    transition: opacity var(--is-dur-base) linear;
+    transform: rotate(var(--rotate, 0deg));
+  }
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+}

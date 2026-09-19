@@ -55,25 +55,6 @@
   }
 }
 
-/* ------------------------------ Team ------------------------------- */
-
-.teamIntro {
-  max-width: 60ch;
-  margin-bottom: var(--is-space-8);
-}
-
-.teamGrid {
-  display: grid;
-  gap: var(--is-space-7);
-  grid-template-columns: 1fr;
-}
-
-@media (min-width: 768px) {
-  .teamGrid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
 /* ----------------------------- Contact CTA -------------------------- */
 
 .ctaSection {

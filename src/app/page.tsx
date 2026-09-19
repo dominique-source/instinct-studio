@@ -2,13 +2,12 @@ import Link from "next/link";
 import styles from "./page.module.css";
 import { Hero } from "@/components/Hero";
 import { FilmCard } from "@/components/FilmCard";
-import { TeamMemberCard, ResidentStrip } from "@/components/TeamMemberCard";
 import { Reveal } from "@/components/Reveal";
 import { ServicesFilmWall } from "@/components/ServicesFilmWall";
 import { CreativeMindSection } from "@/components/creative-mind/CreativeMindSection";
+import { TeamFrequencySection } from "@/components/team-frequency/TeamFrequencySection";
 import { site } from "@/data/site";
 import { featuredPrimeVideos, secondaryPrimeVideos } from "@/data/prime-videos";
-import { founders, resident } from "@/data/team";
 
 export default function HomePage() {
   return (
@@ -61,22 +60,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section" aria-labelledby="team-heading">
-        <div className="container">
-          <p className="eyebrow">Three minds. One instinct.</p>
-          <h2 id="team-heading" className={`display display--md ${styles.teamIntro}`}>
-            A founding team built from sport, image and translation.
-          </h2>
-
-          <div className={styles.teamGrid}>
-            {founders.map((member) => (
-              <TeamMemberCard key={member.id} member={member} />
-            ))}
-          </div>
-
-          <ResidentStrip member={resident} />
-        </div>
-      </section>
+      <TeamFrequencySection />
 
       <CreativeMindSection />
 

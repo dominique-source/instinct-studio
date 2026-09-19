@@ -1,0 +1,248 @@
+.portraitButton {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.portraitWrap {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: var(--is-black-soft);
+  opacity: 0;
+  filter: brightness(0.15) saturate(0.7);
+  transform: translate3d(var(--gx, 0px), var(--gy, 0px), 0);
+  transition: opacity 900ms var(--is-ease), filter 900ms var(--is-ease),
+    transform 260ms var(--is-ease);
+}
+
+.member.isVisible .portraitWrap {
+  opacity: 1;
+  filter: brightness(1) saturate(1);
+}
+
+@media (hover: hover) {
+  .portraitButton:hover .portraitWrap,
+  .portraitButton:focus-visible .portraitWrap {
+    filter: brightness(1.08) saturate(1.05);
+  }
+}
+
+.portraitButton:focus-visible {
+  outline: 2px solid var(--is-blue-bright);
+  outline-offset: 4px;
+}
+
+.portraitImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.info {
+  position: relative;
+  z-index: 4;
+  margin-top: var(--is-space-4);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity var(--is-dur-slow) var(--is-ease), transform var(--is-dur-slow) var(--is-ease);
+}
+
+.member.isVisible .info {
+  opacity: 1;
+  transform: none;
+}
+
+.archetype {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  color: var(--is-blue-bright);
+  transition: text-shadow 260ms var(--is-ease);
+}
+
+.archetype.emphasized {
+  text-shadow: 0 0 14px rgba(59, 130, 255, 0.65);
+}
+
+.name {
+  margin-top: var(--is-space-1);
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1;
+  font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+  color: var(--is-white);
+}
+
+.roleLabel {
+  margin-top: var(--is-space-1);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--is-silver-dim);
+}
+
+.statement {
+  margin-top: var(--is-space-2);
+  color: var(--is-silver);
+  font-size: 0.92rem;
+}
+
+.description {
+  margin-top: var(--is-space-1);
+  max-width: 32ch;
+  color: var(--is-silver-dim);
+  font-size: 0.85rem;
+}
+
+.prompt {
+  margin-top: var(--is-space-2);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-style: italic;
+  color: var(--is-blue-bright);
+  opacity: 0;
+  transform: translateY(4px) rotate(-1deg);
+  transition: opacity 320ms var(--is-ease), transform 320ms var(--is-ease);
+}
+
+.prompt.promptVisible {
+  opacity: 1;
+  transform: none;
+}
+
+.filmSlot,
+.extraFilmSlot,
+.noteSlot,
+.extraNoteSlot {
+  position: absolute;
+  z-index: 3;
+}
+
+.noteSlot {
+  z-index: 5;
+  width: 34%;
+  max-width: 170px;
+  transition: transform 320ms var(--is-ease), opacity var(--is-dur-slow) var(--is-ease);
+}
+
+.noteSlot.noteNear {
+  transform: translate3d(calc(var(--gx, 0px) + var(--note-near-x, 0px)), calc(var(--gy, 0px) + var(--note-near-y, 0px)), 0)
+    rotate(var(--rotate, 0deg));
+}
+
+/* ------------------------ Per-person fragment layout ----------------------- */
+
+@media (min-width: 768px) {
+  [data-member="dominique"] .filmSlot {
+    right: -22%;
+    bottom: 14%;
+    width: 55%;
+  }
+
+  [data-member="dominique"] .extraFilmSlot {
+    left: -15%;
+    bottom: -8%;
+    width: 48%;
+  }
+
+  [data-member="dominique"] .noteSlot {
+    top: -6%;
+    left: -14%;
+  }
+
+  [data-member="stefan"] .filmSlot {
+    right: -55%;
+    top: 10%;
+    width: 75%;
+  }
+
+  [data-member="stefan"] .noteSlot {
+    left: -18%;
+    bottom: -16%;
+    width: 46%;
+  }
+
+  [data-member="neil"] .filmSlot {
+    right: -42%;
+    top: 6%;
+    width: 52%;
+  }
+
+  [data-member="neil"] .noteSlot {
+    left: -24%;
+    top: 32%;
+    width: 46%;
+  }
+
+  [data-member="youri"] .filmSlot {
+    right: -8%;
+    top: -18%;
+    width: 65%;
+  }
+
+  [data-member="youri"] .extraFilmSlot {
+    left: -28%;
+    bottom: -10%;
+    width: 42%;
+  }
+
+  [data-member="youri"] .noteSlot {
+    right: -8%;
+    bottom: -14%;
+    width: 42%;
+  }
+
+  [data-member="youri"] .extraNoteSlot {
+    left: -8%;
+    top: 58%;
+    width: 40%;
+  }
+}
+
+@media (max-width: 767px) {
+  .filmSlot,
+  .noteSlot {
+    position: relative;
+    inset: auto;
+    width: 62%;
+    margin-top: var(--is-space-4);
+  }
+
+  .filmSlot {
+    width: 78%;
+  }
+
+  .extraFilmSlot,
+  .extraNoteSlot {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portraitWrap,
+  .info,
+  .prompt,
+  .archetype,
+  .noteSlot {
+    transition: none;
+  }
+
+  .portraitWrap {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+
+  .info {
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 /** One-shot IntersectionObserver reveal, matching Reveal.tsx's threshold/behavior. */
-export function useInView<T extends HTMLElement>(threshold = 0.2) {
+export function useInView<T extends Element>(threshold = 0.2) {
   const ref = useRef<T>(null);
   const [inView, setInView] = useState(false);
 
