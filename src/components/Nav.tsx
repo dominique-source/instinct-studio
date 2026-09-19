@@ -1,20 +1,38 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./Nav.module.css";
-import { nav, site } from "@/data/site";
+import { nav } from "@/data/site";
 
 export function Nav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
 
   return (
-    <header className={styles.header}>
+    <header
+      className={`${styles.header} ${scrolled || open ? styles.headerScrolled : ""}`}
+    >
       <div className={`container ${styles.bar}`}>
         <Link href="/" className={styles.logo} onClick={() => setOpen(false)}>
-          {site.name}
+          <span className={styles.logoMain}>INSTINCT</span>
+          <span className={styles.logoSub}>STUDIO</span>
         </Link>
 
         <nav aria-label="Primary" className={styles.desktopLinks}>
@@ -59,20 +77,23 @@ export function Nav() {
         </button>
       </div>
 
-      {open && (
-        <nav id="mobile-nav" aria-label="Mobile" className={styles.mobilePanel}>
-          {nav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={styles.mobileLink}
-              onClick={() => setOpen(false)}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-      )}
+      <nav
+        id="mobile-nav"
+        aria-label="Mobile"
+        className={`${styles.mobilePanel} ${open ? styles.mobilePanelOpen : ""}`}
+      >
+        {nav.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className={styles.mobileLink}
+            onClick={() => setOpen(false)}
+            tabIndex={open ? 0 : -1}
+          >
+            {item.label}
+          </Link>
+        ))}
+      </nav>
     </header>
   );
 }

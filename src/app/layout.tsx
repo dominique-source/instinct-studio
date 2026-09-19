@@ -1,21 +1,27 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Archivo, Inter, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { site } from "@/data/site";
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
-  style: ["italic", "normal"],
-  weight: ["500", "600", "700"],
+  weight: ["700", "800", "900"],
   display: "swap",
 });
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
+  subsets: ["latin"],
+  weight: ["500", "600"],
   display: "swap",
 });
 
@@ -39,13 +45,20 @@ export const metadata: Metadata = {
     title: "Instinct Studio | Cinematic Sports Storytelling",
     description: site.description,
     url: site.url,
-    images: [{ url: "/og-image.svg", width: 1200, height: 630, alt: site.name }],
+    images: [
+      {
+        url: "/assets/hero/instinct-studio-hero.png",
+        width: 1672,
+        height: 941,
+        alt: site.name,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Instinct Studio | Cinematic Sports Storytelling",
     description: site.description,
-    images: ["/og-image.svg"],
+    images: ["/assets/hero/instinct-studio-hero.png"],
   },
   icons: {
     icon: "/icon.svg",
@@ -73,7 +86,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
+    <html
+      lang="en"
+      className={`${archivo.variable} ${inter.variable} ${plexMono.variable}`}
+    >
       <body>
         <a href="#main-content" className="skip-link">
           Skip to content

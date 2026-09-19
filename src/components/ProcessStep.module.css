@@ -16,20 +16,22 @@
 }
 
 .number {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 2.2rem;
-  color: var(--is-orange);
+  font-family: var(--font-mono);
+  font-size: 1.8rem;
+  color: var(--is-blue-bright);
 }
 
 .title {
   margin-top: var(--is-space-3);
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
   font-size: 1rem;
-  letter-spacing: 0.12em;
-  color: var(--is-ivory);
+  letter-spacing: 0.04em;
+  color: var(--is-white);
 }
 
 .description {
   margin-top: var(--is-space-2);
-  color: var(--is-ivory-dim);
+  color: var(--is-silver);
 }

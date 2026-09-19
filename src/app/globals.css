@@ -1,22 +1,22 @@
 /* ---------------------------------------------------------------------
    INSTINCT STUDIO — design tokens & base layer.
-   Palette: deep black / charcoal / warm ivory / burnt orange (spent
-   deliberately) / steel grey. See CLAUDE-facing brief for the full brief.
+   Palette: near-black / graphite / white / silver, with electric blue
+   spent deliberately as the one signal color. Sans-only display system
+   (Archivo), Inter for interface/body, IBM Plex Mono for metadata.
    --------------------------------------------------------------------- */
 
 :root {
-  --is-black: #0a0908;
-  --is-charcoal: #1c1917;
-  --is-charcoal-2: #262220;
-  --is-ivory: #f4eee3;
-  --is-ivory-dim: #cfc8ba;
-  --is-steel: #8b8983;
-  --is-steel-dim: #59564f;
-  --is-orange: #c1512d;
-  --is-orange-bright: #d96a3f;
+  --is-black: #030507;
+  --is-black-soft: #080b10;
+  --is-graphite: #11161d;
+  --is-white: #f7f9fc;
+  --is-silver: #aeb8c6;
+  --is-silver-dim: #697586;
+  --is-blue: #146cff;
+  --is-blue-bright: #3b82ff;
 
-  --is-line: rgba(244, 238, 227, 0.14);
-  --is-line-strong: rgba(244, 238, 227, 0.28);
+  --is-line: rgba(247, 249, 252, 0.14);
+  --is-line-strong: rgba(247, 249, 252, 0.28);
 
   --is-space-1: 4px;
   --is-space-2: 8px;
@@ -31,6 +31,7 @@
 
   --is-container: 1280px;
   --is-container-narrow: 780px;
+  --is-nav-h: 84px;
 
   --is-radius: 2px;
 
@@ -39,11 +40,12 @@
   --is-dur-slow: 640ms;
   --is-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
 
-  --font-serif: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-display: var(--font-archivo), Arial, Helvetica, sans-serif;
   --font-sans: var(--font-inter), Arial, Helvetica, sans-serif;
+  --font-mono: var(--font-plex-mono), "Courier New", monospace;
 
   --background: var(--is-black);
-  --foreground: var(--is-ivory);
+  --foreground: var(--is-white);
 }
 
 * {
@@ -99,7 +101,8 @@ a {
 }
 
 img,
-svg {
+svg,
+video {
   display: block;
   max-width: 100%;
 }
@@ -121,12 +124,13 @@ textarea {
 
 main {
   flex: 1;
+  padding-top: var(--is-nav-h);
 }
 
 /* -------------------------- Accessibility -------------------------- */
 
 :focus-visible {
-  outline: 2px solid var(--is-orange-bright);
+  outline: 2px solid var(--is-blue-bright);
   outline-offset: 3px;
 }
 
@@ -147,8 +151,8 @@ main {
   top: -100%;
   left: var(--is-space-4);
   z-index: 100;
-  background: var(--is-orange);
-  color: var(--is-ivory);
+  background: var(--is-blue);
+  color: var(--is-white);
   padding: var(--is-space-2) var(--is-space-4);
   font-family: var(--font-sans);
   font-size: 0.9rem;
@@ -210,11 +214,11 @@ main {
   display: inline-flex;
   align-items: center;
   gap: var(--is-space-2);
-  font-family: var(--font-sans);
-  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--is-orange-bright);
+  color: var(--is-blue-bright);
 }
 
 .eyebrow::before {
@@ -225,12 +229,13 @@ main {
 }
 
 .display {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 600;
-  line-height: 0.98;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-style: normal;
+  text-transform: uppercase;
+  line-height: 0.96;
   letter-spacing: -0.01em;
-  color: var(--is-ivory);
+  color: var(--is-white);
 }
 
 .display--xl {
@@ -249,16 +254,16 @@ main {
   font-family: var(--font-sans);
   font-size: clamp(1rem, 1.6vw, 1.25rem);
   line-height: 1.6;
-  color: var(--is-ivory-dim);
+  color: var(--is-silver);
   max-width: 46ch;
 }
 
 .meta {
-  font-family: var(--font-sans);
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--is-steel);
+  color: var(--is-silver-dim);
 }
 
 /* ------------------------------ Buttons ------------------------------ */
@@ -268,13 +273,14 @@ main {
   align-items: center;
   gap: var(--is-space-3);
   font-family: var(--font-sans);
+  font-weight: 600;
   font-size: 0.85rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   padding: 16px 28px;
   border: 1px solid var(--is-line-strong);
   border-radius: var(--is-radius);
-  color: var(--is-ivory);
+  color: var(--is-white);
   transition: border-color var(--is-dur-fast) var(--is-ease),
     background-color var(--is-dur-fast) var(--is-ease),
     color var(--is-dur-fast) var(--is-ease);
@@ -283,18 +289,18 @@ main {
 }
 
 .btn:hover {
-  border-color: var(--is-ivory);
+  border-color: var(--is-white);
 }
 
 .btn--primary {
-  background: var(--is-orange);
-  border-color: var(--is-orange);
-  color: var(--is-ivory);
+  background: var(--is-blue);
+  border-color: var(--is-blue);
+  color: var(--is-white);
 }
 
 .btn--primary:hover {
-  background: var(--is-orange-bright);
-  border-color: var(--is-orange-bright);
+  background: var(--is-blue-bright);
+  border-color: var(--is-blue-bright);
 }
 
 .btn--ghost {
@@ -304,7 +310,7 @@ main {
 
 .btn--ghost:hover {
   border-color: transparent;
-  color: var(--is-orange-bright);
+  color: var(--is-blue-bright);
 }
 
 /* ----------------------------- Utilities ------------------------------ */

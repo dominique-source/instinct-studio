@@ -29,9 +29,9 @@
 }
 
 .portraitWrap {
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
-  background: var(--is-charcoal);
+  background: var(--is-black-soft);
   border: 1px solid var(--is-line);
 }
 
@@ -68,11 +68,12 @@
 .founderQuote {
   margin-top: var(--is-space-5);
   padding-left: var(--is-space-4);
-  border-left: 2px solid var(--is-orange);
-  font-family: var(--font-serif);
-  font-style: italic;
+  border-left: 2px solid var(--is-blue);
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
   font-size: 1.2rem;
-  color: var(--is-ivory);
+  color: var(--is-white);
 }
 
 .founderQuote span {

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styles from "./Footer.module.css";
-import { nav, site, socialLinks, privacyPolicyHref } from "@/data/site";
+import { footerNav, site, socialLinks, privacyPolicyHref } from "@/data/site";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -21,9 +21,9 @@ export function Footer() {
         <nav aria-label="Footer">
           <p className={styles.heading}>Studio</p>
           <div className={styles.links}>
-            {nav.map((item) => (
+            {footerNav.map((item) => (
               <Link key={item.href} href={item.href}>
-                {item.label.charAt(0) + item.label.slice(1).toLowerCase()}
+                {item.label}
               </Link>
             ))}
           </div>

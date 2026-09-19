@@ -8,8 +8,8 @@ export interface TeamMember {
   shortText: string;
   longText: string;
   quote: string[];
-  /** File name expected under /public/assets/team/ (without extension). */
-  portraitSlug: string;
+  /** Path under /public. Rendered only if the file actually exists on disk. */
+  portraitSrc: string;
 }
 
 export const founders: TeamMember[] = [
@@ -22,7 +22,7 @@ export const founders: TeamMember[] = [
     longText:
       "Dominique Soucy sees sport as a creative language. A former professional basketball player, sports inventor and father of four, he has spent his life exploring how sport shapes identity, learning and community. He created PürInstinct and authored The Sports Art Manifesto, a study of the limitations of traditional sport and the opportunities to rebuild sport around play, connection and human development. Dominique does not treat sport as a destination. He sees sport as a path toward something larger.",
     quote: ["SPORT IS NOT THE DESTINATION.", "SPORT IS THE PATH."],
-    portraitSlug: "dominique-soucy",
+    portraitSrc: "/assets/team/dominique-soucy.png",
   },
   {
     id: "stefan-szary",
@@ -33,7 +33,7 @@ export const founders: TeamMember[] = [
     longText:
       "Stefan Szary transforms human values into cinematic images. Working across film, advertising, scripts, concepts and visual development, he begins with the emotional truth behind an athlete, a company or a community. His work explores how visual storytelling and technology can bring people back to movement, presence and genuine human connection.",
     quote: ["FIND THE HUMAN TRUTH.", "THEN BUILD THE IMAGE."],
-    portraitSlug: "stefan-szary",
+    portraitSrc: "/assets/team/stefan-szary.jpeg",
   },
   {
     id: "neil-frisby",
@@ -44,7 +44,7 @@ export const founders: TeamMember[] = [
     longText:
       "Neil Frisby turns complex creative thinking into clear cultural signals. He listens, absorbs and identifies the sentence, word or gesture capable of carrying an entire experience. Working across immersive entertainment, sport, storytelling and live experiences, Neil connects creative ambition with the way an audience will feel, understand and remember an idea.",
     quote: ["THIRTY HOURS OF THINKING.", "ONE IDEA PEOPLE REMEMBER."],
-    portraitSlug: "neil-frisby",
+    portraitSrc: "/assets/team/neil-frisby.png",
   },
 ];
 
@@ -58,7 +58,7 @@ export const resident: TeamMember = {
   longText:
     "Youri brings a resident creative voice into the studio and helps turn active projects into living visual stories.",
   quote: [],
-  portraitSlug: "youri-hainz",
+  portraitSrc: "/assets/team/youri-hainz.jpeg",
 };
 
 export const team: TeamMember[] = [...founders, resident];

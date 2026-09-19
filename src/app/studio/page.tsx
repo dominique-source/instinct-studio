@@ -4,6 +4,7 @@ import styles from "./page.module.css";
 import { ResidentStrip } from "@/components/TeamMemberCard";
 import { founders, resident } from "@/data/team";
 import { site } from "@/data/site";
+import { publicFileExists } from "@/lib/media";
 
 export const metadata: Metadata = {
   title: "Studio",
@@ -23,19 +24,20 @@ export default function StudioPage() {
 
         <div className={styles.foundersList}>
           {founders.map((member) => {
-            const portraitSrc = `/assets/team/${member.portraitSlug}-placeholder.svg`;
+            const hasPortrait = publicFileExists(member.portraitSrc);
             return (
               <article key={member.id} className={styles.founder}>
-                <div className={styles.portraitWrap}>
-                  <Image
-                    src={portraitSrc}
-                    alt={`Portrait of ${member.name}`}
-                    width={900}
-                    height={1125}
-                    loading="lazy"
-                    unoptimized
-                  />
-                </div>
+                {hasPortrait && (
+                  <div className={styles.portraitWrap}>
+                    <Image
+                      src={member.portraitSrc}
+                      alt={`Portrait of ${member.name}`}
+                      width={900}
+                      height={900}
+                      loading="lazy"
+                    />
+                  </div>
+                )}
                 <div>
                   <h2 className="display display--md">{member.name}</h2>
                   <p className={`meta ${styles.founderTitle}`}>{member.title}</p>

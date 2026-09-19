@@ -5,9 +5,9 @@
 }
 
 .portraitWrap {
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
-  background: var(--is-charcoal);
+  background: var(--is-black-soft);
   border: 1px solid var(--is-line);
 }
 
@@ -18,28 +18,28 @@
 }
 
 .name {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 600;
-  font-size: 1.5rem;
-  color: var(--is-ivory);
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 1.3rem;
+  color: var(--is-white);
 }
 
 .title {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   letter-spacing: 0.06em;
-  color: var(--is-orange-bright);
+  color: var(--is-blue-bright);
   text-transform: uppercase;
   margin-top: var(--is-space-1);
 }
 
 .short {
-  color: var(--is-ivory-dim);
+  color: var(--is-silver);
   margin-top: var(--is-space-3);
 }
 
 .long {
-  color: var(--is-ivory-dim);
+  color: var(--is-silver);
   margin-top: var(--is-space-4);
   line-height: 1.7;
 }
@@ -47,11 +47,12 @@
 .quote {
   margin-top: var(--is-space-5);
   padding-left: var(--is-space-4);
-  border-left: 2px solid var(--is-orange);
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 1.15rem;
-  color: var(--is-ivory);
+  border-left: 2px solid var(--is-blue);
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 1.05rem;
+  color: var(--is-white);
 }
 
 .quote span {
@@ -69,14 +70,18 @@
 
 @media (min-width: 768px) {
   .resident {
-    grid-template-columns: 180px 1fr;
+    grid-template-columns: 140px 1fr;
   }
 }
 
 .residentPortraitWrap {
   width: 140px;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
-  background: var(--is-charcoal);
+  background: var(--is-black-soft);
   border: 1px solid var(--is-line);
+}
+
+.residentName {
+  margin-top: var(--is-space-2);
 }

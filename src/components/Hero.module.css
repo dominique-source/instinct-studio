@@ -1,0 +1,140 @@
+.hero {
+  position: relative;
+  margin-top: calc(-1 * var(--is-nav-h));
+  min-height: calc(100svh + var(--is-nav-h));
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  background: var(--is-black);
+}
+
+.mediaWrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.image {
+  object-fit: cover;
+  object-position: 58% 38%;
+  animation: heroZoom 24s ease-out forwards;
+}
+
+@keyframes heroZoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.025);
+  }
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+      90deg,
+      rgba(3, 5, 7, 0.88) 0%,
+      rgba(3, 5, 7, 0.6) 32%,
+      rgba(3, 5, 7, 0.08) 62%,
+      rgba(3, 5, 7, 0) 85%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(3, 5, 7, 0.95) 0%,
+      rgba(3, 5, 7, 0.55) 32%,
+      rgba(3, 5, 7, 0.05) 60%
+    );
+}
+
+.glow {
+  position: absolute;
+  z-index: 1;
+  top: 12%;
+  left: 34%;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(59, 130, 255, 0.32) 0%,
+    rgba(59, 130, 255, 0) 70%
+  );
+  filter: blur(10px);
+  animation: heroGlow 11s ease-in-out infinite alternate;
+}
+
+@keyframes heroGlow {
+  from {
+    transform: translate(0, 0);
+    opacity: 0.6;
+  }
+  to {
+    transform: translate(-16px, 22px);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image {
+    animation: none;
+  }
+  .glow {
+    animation: none;
+  }
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding-block: var(--is-space-8) var(--is-space-9);
+}
+
+.headline {
+  max-width: 100%;
+}
+
+.highlight {
+  color: var(--is-blue-bright);
+}
+
+.supporting {
+  margin-top: var(--is-space-4);
+  font-family: var(--font-sans);
+  font-size: clamp(0.9rem, 1.4vw, 1.05rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--is-silver);
+  max-width: 40ch;
+}
+
+.actions {
+  margin-top: var(--is-space-6);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--is-space-4);
+}
+
+.enter {
+  opacity: 0;
+  animation: heroEnter 900ms var(--is-ease) forwards;
+}
+
+@keyframes heroEnter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enter {
+    animation-duration: 0.01ms;
+  }
+}

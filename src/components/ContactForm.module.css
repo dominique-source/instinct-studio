@@ -26,18 +26,18 @@
   font-size: 0.8rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--is-steel);
+  color: var(--is-silver-dim);
 }
 
 .field input,
 .field select,
 .field textarea {
-  background: var(--is-charcoal);
+  background: var(--is-graphite);
   border: 1px solid var(--is-line-strong);
   border-radius: var(--is-radius);
   padding: 14px 16px;
   min-height: 44px;
-  color: var(--is-ivory);
+  color: var(--is-white);
 }
 
 .field textarea {
@@ -47,16 +47,16 @@
 .field input:focus-visible,
 .field select:focus-visible,
 .field textarea:focus-visible {
-  border-color: var(--is-orange);
+  border-color: var(--is-blue-bright);
 }
 
 .feelingField label {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 1.4rem;
-  text-transform: none;
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 1.3rem;
   letter-spacing: 0;
-  color: var(--is-ivory);
+  color: var(--is-white);
 }
 
 .feelingField textarea {
@@ -66,12 +66,12 @@
 .status {
   padding: var(--is-space-4);
   border: 1px solid var(--is-line-strong);
-  color: var(--is-ivory-dim);
+  color: var(--is-silver);
 }
 
 .status--success {
-  border-color: var(--is-orange);
-  color: var(--is-ivory);
+  border-color: var(--is-blue);
+  color: var(--is-white);
 }
 
 .fallback {

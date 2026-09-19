@@ -17,11 +17,11 @@ export default function PrivacyPage() {
 
         <div style={{ marginTop: 32, display: "grid", gap: 16 }}>
           <p className="lede">
-            This is a placeholder privacy policy. Instinct Studio does not
-            store sensitive data in this website&apos;s frontend. Information
-            submitted through the Collaborate form is only sent onward once a
-            dedicated intake endpoint is configured, and is otherwise never
-            transmitted anywhere.
+            Instinct Studio does not store sensitive data in this
+            website&apos;s frontend. Information submitted through the
+            Collaborate form is only sent onward once a dedicated intake
+            endpoint is configured, and is otherwise never transmitted
+            anywhere.
           </p>
           <p className="lede">
             For questions about how your information is handled, contact{" "}

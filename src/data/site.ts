@@ -9,16 +9,26 @@ export const site = {
     "Cinematic films, original concepts and immersive experiences centred on athletes.",
   signature: "THREE MINDS. ONE INSTINCT.",
   secondaryLine: "We film the instinct behind the athlete.",
-  // PLACEHOLDER: replace with the production domain before launch.
+  // Short homepage statement, distinct from the longer Studio-page positioning.
+  statement: ["SPORT CREATES THE MOMENT.", "WE FIND THE STORY INSIDE IT."],
+  // Domain is not yet assigned — set NEXT_PUBLIC_SITE_URL once one is.
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://instinctstudio.studio",
   locations: ["Montréal", "Québec", "Worldwide"],
 } as const;
 
+// Primary navigation — kept short on purpose (Process stays reachable from
+// the footer and from the homepage method section instead of the top nav).
 export const nav = [
   { label: "FILMS", href: "/films" },
   { label: "STUDIO", href: "/studio" },
-  { label: "PROCESS", href: "/process" },
-  { label: "COLLABORATE", href: "/collaborate" },
+  { label: "CONTACT", href: "/collaborate" },
+] as const;
+
+export const footerNav = [
+  { label: "Films", href: "/films" },
+  { label: "Studio", href: "/studio" },
+  { label: "Process", href: "/process" },
+  { label: "Contact", href: "/collaborate" },
 ] as const;
 
 // PLACEHOLDER: fill in only once a real handle/URL exists. Footer hides any entry left empty.

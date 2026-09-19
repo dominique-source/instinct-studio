@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import styles from "./page.module.css";
 import { FilmCard } from "@/components/FilmCard";
-import { filmsByOrder } from "@/data/films";
+import { publishedFilms } from "@/data/films";
 
 export const metadata: Metadata = {
   title: "Films",
@@ -19,7 +19,7 @@ export default function FilmsPage() {
         </div>
 
         <div className={styles.grid}>
-          {filmsByOrder.map((film) => (
+          {publishedFilms.map((film) => (
             <FilmCard key={film.id} film={film} />
           ))}
         </div>

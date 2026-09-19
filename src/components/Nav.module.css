@@ -1,13 +1,25 @@
 .header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 50;
-  background: rgba(10, 9, 8, 0.86);
-  backdrop-filter: blur(10px);
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background-color var(--is-dur-base) var(--is-ease),
+    border-color var(--is-dur-base) var(--is-ease),
+    backdrop-filter var(--is-dur-base) var(--is-ease);
+}
+
+.headerScrolled {
+  background: rgba(3, 5, 7, 0.82);
+  backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--is-line);
 }
 
 .bar {
+  position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -15,12 +27,26 @@
 }
 
 .logo {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  gap: 4px;
+}
+
+.logoMain {
+  font-family: var(--font-display);
+  font-weight: 900;
   font-size: 1.15rem;
-  letter-spacing: 0.02em;
-  color: var(--is-ivory);
+  letter-spacing: 0.06em;
+  color: var(--is-white);
+}
+
+.logoSub {
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  letter-spacing: 0.4em;
+  color: var(--is-silver);
+  padding-left: 2px;
 }
 
 .desktopLinks {
@@ -37,9 +63,10 @@
 
 .link {
   font-family: var(--font-sans);
+  font-weight: 600;
   font-size: 0.8rem;
   letter-spacing: 0.14em;
-  color: var(--is-ivory-dim);
+  color: var(--is-silver);
   padding-block: var(--is-space-2);
   border-bottom: 1px solid transparent;
   transition: color var(--is-dur-fast) var(--is-ease),
@@ -47,21 +74,24 @@
 }
 
 .link:hover {
-  color: var(--is-ivory);
+  color: var(--is-white);
 }
 
 .linkActive {
-  color: var(--is-ivory);
-  border-color: var(--is-orange);
+  color: var(--is-white);
+  border-color: var(--is-blue-bright);
 }
 
 .menuButton {
+  position: relative;
+  z-index: 2;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 44px;
   height: 44px;
   border: 1px solid var(--is-line-strong);
+  color: var(--is-white);
 }
 
 @media (min-width: 768px) {
@@ -71,17 +101,53 @@
 }
 
 .mobilePanel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100dvh;
+  z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: var(--is-space-5);
-  padding: var(--is-space-6) var(--is-space-5) var(--is-space-8);
-  border-top: 1px solid var(--is-line);
+  justify-content: center;
+  gap: var(--is-space-6);
+  padding: var(--is-space-9) var(--is-space-5);
   background: var(--is-black);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px);
+  transition: opacity var(--is-dur-base) var(--is-ease),
+    transform var(--is-dur-base) var(--is-ease);
+}
+
+.mobilePanelOpen {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobilePanel {
+    transition: none;
+    transform: none;
+  }
 }
 
 .mobileLink {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 1.6rem;
-  color: var(--is-ivory);
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 2.1rem;
+  color: var(--is-white);
+}
+
+.mobileLink:focus-visible {
+  outline: 2px solid var(--is-blue-bright);
+  outline-offset: 4px;
+}
+
+@media (min-width: 768px) {
+  .mobilePanel {
+    display: none;
+  }
 }

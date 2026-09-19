@@ -20,7 +20,9 @@ export interface Film {
   studioRole: string;
   /** Confirmed external credits only — leave empty rather than inventing names. */
   credits: Credit[];
+  /** Real poster image under /public, or "" to fall back to a video preview frame. */
   poster: string;
+  /** Real, playable video URL under /public or a hosted CDN, or "" while unreleased. */
   videoUrl: string;
   featured: boolean;
   order: number;
@@ -40,9 +42,9 @@ export const films: Film[] = [
     studioRole:
       "Instinct Studio conceived and produced this trailer to introduce the PürInstinct Games to a new audience.",
     credits: [],
-    poster: "/media/posters/purinstinct-games.svg",
+    poster: "",
     videoUrl: "",
-    featured: true,
+    featured: false,
     order: 1,
     sourceFile: "PurInstinct Games Official Trailer.mov",
   },
@@ -57,9 +59,9 @@ export const films: Film[] = [
     studioRole:
       "Instinct Studio directed this branded short film in collaboration with Manmade.",
     credits: [],
-    poster: "/media/posters/purinstinct-x-manmade.svg",
+    poster: "",
     videoUrl: "",
-    featured: true,
+    featured: false,
     order: 2,
     sourceFile: "Pürinsctinct - Manmade.mp4",
   },
@@ -76,7 +78,7 @@ export const films: Film[] = [
     studioRole:
       "Instinct Studio produced this explainer to make PürInstinct's rules and spirit clear in three minutes.",
     credits: [],
-    poster: "/media/posters/learn-purinstinct.svg",
+    poster: "",
     videoUrl: "",
     featured: false,
     order: 3,
@@ -93,7 +95,7 @@ export const films: Film[] = [
     studioRole:
       "Instinct Studio filmed and edited this event film on location at the PürInstinct Festival.",
     credits: [],
-    poster: "/media/posters/purinstinct-festival.svg",
+    poster: "",
     videoUrl: "",
     featured: false,
     order: 4,
@@ -111,7 +113,7 @@ export const films: Film[] = [
     studioRole:
       "Instinct Studio directed this concept film as an exploration of AI-assisted image-making.",
     credits: [],
-    poster: "/media/posters/instinct-en.svg",
+    poster: "",
     videoUrl: "",
     featured: false,
     order: 5,
@@ -129,7 +131,7 @@ export const films: Film[] = [
     studioRole:
       "Instinct Studio directed this concept film as an exploration of AI-assisted image-making.",
     credits: [],
-    poster: "/media/posters/instinct-fr.svg",
+    poster: "",
     videoUrl: "",
     featured: false,
     order: 6,
@@ -146,7 +148,7 @@ export const films: Film[] = [
     studioRole:
       "Instinct Studio produced this pilot to establish PürInstinct's visual language on screen.",
     credits: [],
-    poster: "/media/posters/purinstinct-pilot.svg",
+    poster: "",
     videoUrl: "",
     featured: false,
     order: 7,
@@ -163,7 +165,7 @@ export const films: Film[] = [
     studioRole:
       "Instinct Studio filmed this session to document athletes inside the PürInstinct format.",
     credits: [],
-    poster: "/media/posters/purinstinct-session.svg",
+    poster: "",
     videoUrl: "",
     featured: false,
     order: 8,
@@ -179,7 +181,7 @@ export const films: Film[] = [
     synopsis: "A teaser introducing the idea of Un Sport Pur.",
     studioRole: "Instinct Studio produced this teaser to introduce Un Sport Pur.",
     credits: [],
-    poster: "/media/posters/un-sport-pur.svg",
+    poster: "",
     videoUrl: "",
     featured: false,
     order: 9,
@@ -196,23 +198,35 @@ export const films: Film[] = [
     studioRole:
       "Instinct Studio produced this capsule in collaboration with Kaz.",
     credits: [],
-    poster: "/media/posters/festival-x-kaz.svg",
-    videoUrl: "",
-    featured: false,
+    poster: "",
+    videoUrl: "/media/videos/festival-kaz.mp4",
+    featured: true,
     order: 10,
     sourceFile: "Video Festival - Kaz.MP4",
   },
 ];
 
-export const filmsByOrder = [...films].sort((a, b) => a.order - b.order);
-export const featuredFilms = filmsByOrder.filter((film) => film.featured);
-export const secondaryFilms = filmsByOrder.filter((film) => !film.featured);
-
-export function getFilmBySlug(slug: string): Film | undefined {
-  return films.find((film) => film.slug === slug);
+/**
+ * A film only appears anywhere on the public site once it has real media —
+ * a playable video and/or a real poster image. Everything else stays in
+ * this file, ready to activate, but stays out of listings, sitemaps and
+ * direct routes until then. See README "Adding a new film".
+ */
+export function isPublished(film: Film): boolean {
+  return Boolean(film.videoUrl) || Boolean(film.poster);
 }
 
-export function getNextFilm(current: Film): Film {
-  const index = filmsByOrder.findIndex((film) => film.id === current.id);
-  return filmsByOrder[(index + 1) % filmsByOrder.length];
+export const filmsByOrder = [...films].sort((a, b) => a.order - b.order);
+export const publishedFilms = filmsByOrder.filter(isPublished);
+export const featuredFilms = publishedFilms.filter((film) => film.featured);
+export const secondaryFilms = publishedFilms.filter((film) => !film.featured);
+
+export function getFilmBySlug(slug: string): Film | undefined {
+  return publishedFilms.find((film) => film.slug === slug);
+}
+
+export function getNextFilm(current: Film): Film | undefined {
+  if (publishedFilms.length < 2) return undefined;
+  const index = publishedFilms.findIndex((film) => film.id === current.id);
+  return publishedFilms[(index + 1) % publishedFilms.length];
 }

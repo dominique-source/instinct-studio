@@ -17,18 +17,18 @@
 }
 
 .wordmark {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 600;
-  font-size: 1.6rem;
-  color: var(--is-ivory);
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 1.4rem;
+  color: var(--is-white);
 }
 
 .locations {
   display: flex;
   gap: var(--is-space-3);
   margin-top: var(--is-space-4);
-  color: var(--is-steel);
+  color: var(--is-silver-dim);
   font-size: 0.85rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -37,7 +37,7 @@
 
 .legal {
   margin-top: var(--is-space-4);
-  color: var(--is-steel);
+  color: var(--is-silver-dim);
   font-size: 0.85rem;
 }
 
@@ -45,7 +45,7 @@
   font-size: 0.75rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--is-steel);
+  color: var(--is-silver-dim);
   margin-bottom: var(--is-space-4);
 }
 
@@ -56,13 +56,13 @@
 }
 
 .links a {
-  color: var(--is-ivory-dim);
+  color: var(--is-silver);
   font-size: 0.95rem;
   transition: color var(--is-dur-fast) var(--is-ease);
 }
 
 .links a:hover {
-  color: var(--is-orange-bright);
+  color: var(--is-blue-bright);
 }
 
 .bottom {
@@ -73,6 +73,6 @@
   flex-wrap: wrap;
   gap: var(--is-space-3);
   justify-content: space-between;
-  color: var(--is-steel-dim);
+  color: var(--is-silver-dim);
   font-size: 0.8rem;
 }

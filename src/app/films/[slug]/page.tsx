@@ -3,10 +3,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import styles from "./page.module.css";
-import { films, getFilmBySlug, getNextFilm } from "@/data/films";
+import { publishedFilms, getFilmBySlug, getNextFilm } from "@/data/films";
 
 export function generateStaticParams() {
-  return films.map((film) => ({ slug: film.slug }));
+  return publishedFilms.map((film) => ({ slug: film.slug }));
 }
 
 export async function generateMetadata({
@@ -27,7 +27,7 @@ export async function generateMetadata({
     openGraph: {
       title: film.title,
       description: film.synopsis,
-      images: [{ url: film.poster }],
+      ...(film.poster ? { images: [{ url: film.poster }] } : {}),
     },
   };
 }
@@ -59,17 +59,27 @@ export default async function FilmPage({
     <article className="section">
       <div className="container">
         <div className={styles.playerFrame}>
-          <Image
-            src={film.poster}
-            alt=""
-            className={styles.playerImage}
-            width={1600}
-            height={900}
-            priority
-            unoptimized
-          />
-          {!film.videoUrl && (
-            <span className={styles.comingSoonBadge}>Film coming soon</span>
+          {film.videoUrl ? (
+            <video
+              className={styles.playerVideo}
+              src={film.videoUrl}
+              poster={film.poster || undefined}
+              controls
+              playsInline
+              preload="metadata"
+              aria-label={`${film.title} — full film`}
+            />
+          ) : (
+            film.poster && (
+              <Image
+                src={film.poster}
+                alt=""
+                className={styles.playerImage}
+                fill
+                sizes="100vw"
+                priority
+              />
+            )
           )}
         </div>
 
@@ -100,22 +110,11 @@ export default async function FilmPage({
               <h2 className="display display--md">Instinct Studio&apos;s role</h2>
               <p className={styles.synopsis}>{film.studioRole}</p>
             </div>
-
-            <div className={styles.roleBlock}>
-              <h2 className="display display--md">Storyboards &amp; stills</h2>
-              <p className="meta">
-                Production stills and storyboards will be added once available.
-              </p>
-              <div className={styles.stillsGrid} aria-hidden="true">
-                <div className={styles.stillFrame} />
-                <div className={styles.stillFrame} />
-              </div>
-            </div>
           </div>
 
-          <div>
-            <h2 className="display display--md">Credits</h2>
-            {film.credits.length > 0 ? (
+          {film.credits.length > 0 && (
+            <div>
+              <h2 className="display display--md">Credits</h2>
               <ul className={styles.creditsList}>
                 {film.credits.map((credit) => (
                   <li key={`${credit.role}-${credit.name}`}>
@@ -124,26 +123,26 @@ export default async function FilmPage({
                   </li>
                 ))}
               </ul>
-            ) : (
-              <p className="meta">Full credits to be confirmed.</p>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
 
-      <div className={styles.nextSection}>
-        <div className="container">
-          <Link href={`/films/${nextFilm.slug}`} className={styles.nextLink}>
-            <div>
-              <p className="eyebrow">Next project</p>
-              <p className={`display display--md ${styles.nextTitle}`}>
-                {nextFilm.title}
-              </p>
-            </div>
-            <span aria-hidden="true">→</span>
-          </Link>
+      {nextFilm && (
+        <div className={styles.nextSection}>
+          <div className="container">
+            <Link href={`/films/${nextFilm.slug}`} className={styles.nextLink}>
+              <div>
+                <p className="eyebrow">Next project</p>
+                <p className={`display display--md ${styles.nextTitle}`}>
+                  {nextFilm.title}
+                </p>
+              </div>
+              <span aria-hidden="true">→</span>
+            </Link>
+          </div>
         </div>
-      </div>
+      )}
     </article>
   );
 }
