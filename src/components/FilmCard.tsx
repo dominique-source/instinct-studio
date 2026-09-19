@@ -1,24 +1,17 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./FilmCard.module.css";
-import {
-  youtubeThumbnailUrl,
-  youtubeThumbnailFallbackUrl,
-  type PrimeVideo,
-} from "@/data/prime-videos";
+import type { PrimeVideo } from "@/data/prime-videos";
 
 export function FilmCard({
   video,
   featured = false,
+  priority = false,
 }: {
   video: PrimeVideo;
   featured?: boolean;
+  priority?: boolean;
 }) {
-  const [thumbnailSrc, setThumbnailSrc] = useState(youtubeThumbnailUrl(video.youtubeId));
-
   return (
     <Link
       href={`/films/${video.slug}`}
@@ -26,12 +19,12 @@ export function FilmCard({
     >
       <div className={styles.mediaWrap}>
         <Image
-          src={thumbnailSrc}
+          src={video.poster}
           alt=""
           className={styles.media}
           fill
           sizes="(min-width: 1024px) 45vw, 100vw"
-          onError={() => setThumbnailSrc(youtubeThumbnailFallbackUrl(video.youtubeId))}
+          priority={priority}
         />
         <span className={styles.playIcon} aria-hidden="true">
           <svg width="18" height="18" viewBox="0 0 18 18">

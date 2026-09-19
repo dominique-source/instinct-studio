@@ -68,7 +68,8 @@ src/
     Hero.tsx / .module.css     full-bleed cinematic homepage hero
     Nav.tsx / .module.css      transparent-to-solid scroll nav, full-screen mobile panel
     Footer.tsx
-    FilmCard.tsx                Prime Video card: YouTube thumbnail, title, "Prime Video" label, play icon
+    FilmCard.tsx                Prime Video card: local poster, title, "Prime Video" label, play icon
+    FilmPlayer.tsx               click-to-play: poster + play button until clicked, then the embed
     TeamMemberCard.tsx           real portraits, hides gracefully if a file is missing
     ProcessStep.tsx
     ContactForm.tsx
@@ -80,6 +81,7 @@ src/
 public/
   assets/hero/             instinct-studio-hero.png (live), instinct-studio-hero-reference.png (composition reference only, never rendered)
   assets/team/             real portraits: dominique-soucy.png, stefan-szary.jpeg, neil-frisby.png, youri-hainz.jpeg
+  media/posters/           prime-video-01..06.png — the six custom cinematic posters (see mapping table below)
   media/videos/            festival-kaz.mp4 — kept in the repo but never loaded, linked or
                            displayed by the site; the six Prime Videos are YouTube-hosted only
 ```
@@ -120,21 +122,40 @@ an ID that isn't in the array (including every previous film's old slug,
 e.g. `/films/festival-x-kaz`) renders the site's standard not-found page.
 
 **No YouTube API key is required.** Playback uses the public
-`youtube-nocookie.com/embed/<id>` URL directly; thumbnails use the public
-`i.ytimg.com/vi/<id>/maxresdefault.jpg` URL directly. Both are plain HTTPS
-requests, not API calls.
+`youtube-nocookie.com/embed/<id>` URL directly — a plain HTTPS request, not
+an API call. Thumbnails are custom local images (below), not
+YouTube-generated ones.
+
+### Poster mapping
+
+Each video's thumbnail is a real cinematic photo — not a YouTube-generated
+frame — copied from the originally uploaded file into a stable path:
+
+| Prime Video | YouTube ID | Original thumb file | Public poster path |
+| ----------- | ---------- | -------------------- | ------------------- |
+| 01 | `yczX4OfLZEE` | `thumb 1.png` | `public/media/posters/prime-video-01.png` |
+| 02 | `hPLfmAOFkKc` | `thumb 2.png` | `public/media/posters/prime-video-02.png` |
+| 03 | `jeLplJNxUiQ` | `thumb 3.png` | `public/media/posters/prime-video-03.png` |
+| 04 | `KDz1gF3xGPE` | `thumb 4.png` | `public/media/posters/prime-video-04.png` |
+| 05 | `N4ec8bJfsoc` | `thumb 5.png` | `public/media/posters/prime-video-05.png` |
+| 06 | `JgSlbz9942M` | `thumb 6.png` | `public/media/posters/prime-video-06.png` |
+
+The original `thumb N.png` files are still at the repository root,
+untouched — the files under `public/media/posters/` are copies. The
+mapping (and every other per-video field) lives in the `posters` map in
+`src/data/prime-videos.ts`.
 
 ### How it renders
 
-- **Cards** (homepage + `/films` index) show only a static YouTube
-  thumbnail (`FilmCard.tsx`), the title, a "Prime Video" label and a play
-  icon on hover/focus — never a video element or iframe. No YouTube player
-  ever loads until a visitor clicks through to a film's own page.
-- **Thumbnails** try `maxresdefault.jpg` first and fall back to
-  `hqdefault.jpg` (which always exists) if the high-res one 404s, via the
-  `onError` handler in `FilmCard.tsx`.
-- **The film page** (`/films/[slug]`) embeds the real player in a 16:9,
-  border-free frame:
+- **Cards** (homepage + `/films` index) show only the static local poster
+  (`FilmCard.tsx`), the title, a "Prime Video" label and a play icon on
+  hover/focus — never a video element or iframe. No YouTube player ever
+  loads from a card; clicking one navigates to that film's own page.
+- **The film page** (`/films/[slug]`) shows the same poster full-size with
+  a persistent play button (`FilmPlayer.tsx`) until the visitor clicks it.
+  Only then does it mount the real embed, replacing the poster in the same
+  16:9, border-free frame — so nothing shifts and no player exists in the
+  page until that explicit click:
   ```tsx
   <iframe
     src={`https://www.youtube-nocookie.com/embed/${youtubeId}?rel=0&playsinline=1`}
@@ -144,18 +165,17 @@ requests, not API calls.
     allowFullScreen
   />
   ```
-  No `autoplay` parameter is set, so nothing plays until the visitor
-  presses play inside the embedded player — audio never starts on its own.
-  `next.config.ts` allowlists `i.ytimg.com` under `images.remotePatterns`
-  so `next/image` can optimize the thumbnails.
+  No `autoplay` parameter is set either, so playback only ever starts from
+  a visitor's own click inside the embedded player — audio never starts on
+  its own, and the visitor is never redirected to youtube.com.
 
 ### Replacing a video
 
 Edit `primeVideoIds` in `src/data/prime-videos.ts` — swap the ID at the
-position you want to change. If you know the real title, add it to the
-`confirmedTitles` map keyed by that same ID; otherwise leave it `null` and
-the site shows "Prime Video 0N" (never invent a title, client, athlete,
-credit or date).
+position you want to change, then add a matching entry for that new ID in
+both the `confirmedTitles` map (the real title if known, otherwise `null`
+to show "Prime Video 0N" — never invent one) and the `posters` map (a real
+image under `public/media/posters/`, never a placeholder).
 
 ### Changing the order
 
@@ -221,8 +241,8 @@ variables above in your hosting provider's dashboard.
 ## SEO
 
 - Per-page `<title>`/description via the Metadata API. Each film page's
-  Open Graph image is that video's own YouTube thumbnail; the site-wide
-  default is the real hero photo (`/assets/hero/instinct-studio-hero.png`).
+  Open Graph image is that video's own local poster; the site-wide default
+  is the real hero photo (`/assets/hero/instinct-studio-hero.png`).
 - `src/app/sitemap.ts` and `src/app/robots.ts` are generated from
   `primeVideos`, so the sitemap's `/films/*` entries are exactly the six
   Prime Video routes — nothing else.

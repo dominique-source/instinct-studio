@@ -2,13 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import styles from "./page.module.css";
-import {
-  primeVideos,
-  getPrimeVideoBySlug,
-  getNextPrimeVideo,
-  youtubeEmbedUrl,
-  youtubeThumbnailUrl,
-} from "@/data/prime-videos";
+import { FilmPlayer } from "@/components/FilmPlayer";
+import { primeVideos, getPrimeVideoBySlug, getNextPrimeVideo } from "@/data/prime-videos";
 
 export function generateStaticParams() {
   return primeVideos.map((video) => ({ slug: video.slug }));
@@ -34,7 +29,7 @@ export async function generateMetadata({
     openGraph: {
       title: video.title,
       description,
-      images: [{ url: youtubeThumbnailUrl(video.youtubeId) }],
+      images: [{ url: video.poster }],
     },
   };
 }
@@ -57,13 +52,10 @@ export default async function FilmPage({
     <article className="section">
       <div className="container">
         <div className={styles.playerFrame}>
-          <iframe
-            className={styles.playerIframe}
-            src={youtubeEmbedUrl(video.youtubeId)}
-            title={`${video.title} — full film`}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerPolicy="strict-origin-when-cross-origin"
-            allowFullScreen
+          <FilmPlayer
+            youtubeId={video.youtubeId}
+            poster={video.poster}
+            title={video.title}
           />
         </div>
 

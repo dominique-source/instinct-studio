@@ -1,0 +1,72 @@
+.frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  background: var(--is-black);
+  overflow: hidden;
+}
+
+.poster {
+  object-fit: cover;
+}
+
+.trigger {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.trigger::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(3, 5, 7, 0.28);
+  transition: background-color var(--is-dur-fast) var(--is-ease);
+}
+
+.trigger:hover::before,
+.trigger:focus-visible::before {
+  background: rgba(3, 5, 7, 0.42);
+}
+
+.playIcon {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: rgba(3, 5, 7, 0.55);
+  border: 1px solid var(--is-line-strong);
+  color: var(--is-white);
+  transition: transform var(--is-dur-fast) var(--is-ease),
+    border-color var(--is-dur-fast) var(--is-ease);
+}
+
+.trigger:hover .playIcon,
+.trigger:focus-visible .playIcon {
+  transform: scale(1.08);
+  border-color: var(--is-blue-bright);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trigger:hover .playIcon {
+    transform: none;
+  }
+}
+
+.iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}

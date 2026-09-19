@@ -19,8 +19,12 @@ export default function FilmsPage() {
         </div>
 
         <div className={styles.grid}>
-          {primeVideos.map((video) => (
-            <FilmCard key={video.youtubeId} video={video} />
+          {primeVideos.map((video, index) => (
+            <FilmCard
+              key={video.youtubeId}
+              video={video}
+              priority={index === 0}
+            />
           ))}
         </div>
       </div>
