@@ -1,0 +1,119 @@
+.section {
+  position: relative;
+  background: var(--is-black);
+  overflow: hidden;
+}
+
+.intro {
+  position: relative;
+  z-index: 2;
+  max-width: 52ch;
+}
+
+.headline {
+  margin-top: var(--is-space-3);
+  font-size: clamp(2.4rem, 6.4vw, 5.2rem);
+}
+
+.secondaryLine {
+  margin-top: var(--is-space-3);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--is-silver);
+}
+
+/* ---------------------------- Signature notes ---------------------------- */
+
+.signatureTop {
+  margin-top: var(--is-space-5);
+  width: 200px;
+  max-width: 60%;
+}
+
+.signatureBottom {
+  margin-top: var(--is-space-8);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--is-space-4);
+}
+
+.signatureBottom img {
+  width: auto;
+  height: 20px;
+}
+
+@media (min-width: 1024px) {
+  .signatureTop {
+    position: absolute;
+    top: var(--is-space-9);
+    right: var(--is-space-7);
+    margin-top: 0;
+    width: 220px;
+    z-index: 2;
+  }
+}
+
+/* -------------------------------- Collage -------------------------------- */
+
+.collage {
+  position: relative;
+  z-index: 2;
+  margin-top: var(--is-space-8);
+  display: grid;
+  row-gap: var(--is-space-9);
+  grid-template-areas:
+    "instinct"
+    "humanTruth"
+    "signal"
+    "visualLanguage"
+    "culturalImpact";
+}
+
+.collage [data-stage="human-truth"] {
+  grid-area: humanTruth;
+}
+
+.collage [data-stage="signal"] {
+  grid-area: signal;
+}
+
+.collage [data-stage="visual-language"] {
+  grid-area: visualLanguage;
+}
+
+.collage [data-stage="cultural-impact"] {
+  grid-area: culturalImpact;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .collage {
+    column-gap: var(--is-space-7);
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "humanTruth signal"
+      "instinct instinct"
+      "visualLanguage culturalImpact";
+  }
+}
+
+@media (min-width: 1024px) {
+  .collage {
+    column-gap: var(--is-space-8);
+    row-gap: var(--is-space-8);
+    grid-template-columns: repeat(12, 1fr);
+    align-items: start;
+    grid-template-areas:
+      "humanTruth humanTruth humanTruth humanTruth signal signal signal signal signal culturalImpact culturalImpact culturalImpact"
+      "humanTruth humanTruth humanTruth humanTruth instinct instinct instinct instinct instinct culturalImpact culturalImpact culturalImpact"
+      "humanTruth humanTruth humanTruth humanTruth visualLanguage visualLanguage visualLanguage visualLanguage visualLanguage culturalImpact culturalImpact culturalImpact";
+  }
+
+  .collage [data-stage="human-truth"],
+  .collage [data-stage="cultural-impact"] {
+    padding-top: var(--is-space-7);
+  }
+}

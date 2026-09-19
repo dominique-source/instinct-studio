@@ -3,13 +3,12 @@ import styles from "./page.module.css";
 import { Hero } from "@/components/Hero";
 import { FilmCard } from "@/components/FilmCard";
 import { TeamMemberCard, ResidentStrip } from "@/components/TeamMemberCard";
-import { ProcessStepGrid } from "@/components/ProcessStep";
 import { Reveal } from "@/components/Reveal";
 import { ServicesFilmWall } from "@/components/ServicesFilmWall";
+import { CreativeMindSection } from "@/components/creative-mind/CreativeMindSection";
 import { site } from "@/data/site";
 import { featuredPrimeVideos, secondaryPrimeVideos } from "@/data/prime-videos";
 import { founders, resident } from "@/data/team";
-import { processTitle, processStatement, processSteps } from "@/data/process";
 
 export default function HomePage() {
   return (
@@ -79,16 +78,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section" aria-labelledby="method-heading">
-        <div className="container">
-          <p className="eyebrow">{processTitle}</p>
-          <h2 id="method-heading" className={`display display--md ${styles.methodHeader}`}>
-            {processStatement}
-          </h2>
-
-          <ProcessStepGrid steps={processSteps} />
-        </div>
-      </section>
+      <CreativeMindSection />
 
       <ServicesFilmWall />
 

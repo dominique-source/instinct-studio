@@ -53,7 +53,7 @@ this redesign.
 ```
 src/
   app/
-    page.tsx              home (Hero -> Prime Videos -> statement -> team -> method -> services -> contact)
+    page.tsx              home (Hero -> Prime Videos -> statement -> team -> creative mind -> services -> contact)
     films/page.tsx        films index — the six Prime Videos, in order
     films/[slug]/page.tsx film detail — generateStaticParams(primeVideos), notFound() for anything else
     studio/page.tsx
@@ -79,15 +79,23 @@ src/
     StefChapter.tsx / .module.css       "Selected Director's Work" chapter intro + sequence
     StefFilmFrame.tsx / .module.css     one Stef Szary film frame (number, title, credit, play)
     VimeoModal.tsx / .module.css        accessible on-site Vimeo playback modal
+    creative-mind/               "Inside the Creative Mind" — see below
+      CreativeMindSection.tsx / .module.css   top-level section: intro, signature notes, collage
+      StageBlock.tsx / .module.css            one of the four stages (number, title, visuals, notes)
+      InstinctNucleus.tsx / .module.css       the central "INSTINCT" word + glow
+      ConnectorPath.tsx / .module.css         electric-blue connector (SVG desktop / line mobile)
   data/
     prime-videos.ts        the six YouTube videos — see "Prime Videos" below
     team.ts, services.ts, process.ts, site.ts
     stef-films.ts           the four Stef Szary Vimeo films — see "Moving Film Wall" below
+    creative-mind.ts        "Inside the Creative Mind" copy + per-stage asset data
   lib/media.ts             publicFileExists() — used to hide (never placeholder) missing media
   lib/motion.ts            prefersReducedMotion() — shared reduced-motion check
+  lib/useInView.ts         shared one-shot IntersectionObserver reveal hook
 public/
   assets/hero/             instinct-studio-hero.png (live), instinct-studio-hero-reference.png (composition reference only, never rendered)
   assets/team/             real portraits: dominique-soucy.png, stefan-szary.jpeg, neil-frisby.png, youri-hainz.jpeg
+  media/creative-mind/     film/paper stills + handwritten notes for "Inside the Creative Mind" — see below
   media/posters/           prime-video-01..06.png — the six custom cinematic posters (see mapping table below)
   media/stef-selected-work/  intended home for the 4 real Vimeo thumbnails (not yet added — see below)
   media/videos/            festival-kaz.mp4 — kept in the repo but never loaded, linked or
@@ -101,6 +109,7 @@ public/
   Residence).
 - **Services / Moving Film Wall** — `src/data/services.ts`.
 - **Selected Director's Work (Stef Szary films)** — `src/data/stef-films.ts`.
+- **Inside the Creative Mind** — `src/data/creative-mind.ts`.
 - **Process / method** — `src/data/process.ts`.
 - **Site-wide config** (name, taglines, nav, social links, contact email) —
   `src/data/site.ts`.
@@ -256,6 +265,65 @@ fetch `https://vimeo.com/api/oembed.json?url=<vimeo-url>` for each film and
 update `title` (and `duration`, formatted `m:ss`) in `stef-films.ts` for any
 whose real title was confirmed — leave any unconfirmed one on its "Film 0N"
 fallback rather than guessing.
+
+## Inside the Creative Mind ("How We Think")
+
+The homepage's "How We Think" section (previously a plain four-column
+"From Raw Instinct to Cultural Signal" list) is now a layered, interactive
+composition — `CreativeMindSection.tsx` — built from real film/paper stills
+and handwritten creative notes, following an approved maquette supplied as
+`Instinct_Studio_Inside_The_Creative_Mind_Assets.zip` (kept at the repo
+root as the permanent source reference; the maquette and layout-reference
+compositions inside it are never loaded in production — only the 11
+individual film/paper assets and 15 handwritten-note assets under
+`public/media/creative-mind/` are).
+
+**Structure** — one `INSTINCT` nucleus (live text, central) plus four
+stages, each with a number, title and description (all live HTML text),
+a main visual, a secondary visual, 0–2 extra visuals and 1–3 decorative
+handwritten notes:
+
+| Stage | Zone (desktop) | Main visual | Secondary visual |
+| --- | --- | --- | --- |
+| 01 Human Truth | Left | athlete portrait | track start |
+| 02 Signal | Upper centre | storyboard sequence | human-truth diagram |
+| 03 Visual Language | Lower centre | movement contact sheet | camera-sketch note |
+| 04 Cultural Impact | Right | backlit athlete | stadium camera frame |
+
+Three more notes ("More than film.", "Sport lives in people.", "Ideas move
+the world.") frame the section itself, not tied to one stage.
+
+**Responsive strategy** — a single DOM tree (no duplicated markup per
+breakpoint) with `CreativeMindSection.module.css`'s `.collage` switching
+`grid-template-areas`: a plain vertical stack on mobile (intro → INSTINCT →
+Human Truth → Signal → Visual Language → Cultural Impact), a two-row 2-column
+editorial grid on tablet (Human Truth+Signal, then INSTINCT full-width, then
+Visual Language+Cultural Impact), and an asymmetric 12-column grid on desktop
+(Human Truth and Cultural Impact as tall side columns, Signal/INSTINCT/Visual
+Language stacked in the center). A handful of secondary film stills and notes
+carry `minBreakpoint: "desktop"` in `creative-mind.ts` and are `display:none`
+below 1024px — since Next.js images lazy-load on intersection, a hidden image
+never fetches, so there are no duplicate or wasted requests across
+breakpoints.
+
+**Motion** — each stage and the nucleus fade/slide in once via
+`useInView` (`src/lib/useInView.ts`), matching `Reveal.tsx`'s existing
+one-shot `IntersectionObserver` pattern. `ConnectorPath.tsx` draws three
+electric-blue SVG segments (Human Truth→Signal→Visual Language→Cultural
+Impact) as each next stage scrolls into view; below 1024px it swaps to a
+single always-visible vertical line running the length of the sequence.
+Paper notes carry a fixed 2–4° rotation (`rotate` in the data); hovering
+any visual on desktop brings it forward, brightens it and reveals its stage
+name as a small label. Everything respects `prefers-reduced-motion`
+(reveals render fully visible immediately, the SVG path is pre-drawn).
+
+**Accessibility** — the 15 handwritten-note images and the 3 section-framing
+statements are `aria-hidden` with empty `alt`; each stage's actual meaning is
+carried by its live title/description plus a `sr-only` `notesSummary`
+paragraph transcribing its notes' text. The 11 film/paper stills carry
+real descriptive `alt` text (they're informative, not decorative). Nothing
+in the section is a link or button — it's read as prose/imagery, not a
+navigation menu, so keyboard Tab passes over it without stopping.
 
 ### `festival-kaz.mp4`
 

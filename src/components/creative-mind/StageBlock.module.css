@@ -1,0 +1,252 @@
+.stage {
+  position: relative;
+  opacity: 0;
+  transform: translate3d(0, 32px, 0);
+  transition: opacity var(--is-dur-slow) var(--is-ease),
+    transform var(--is-dur-slow) var(--is-ease);
+}
+
+.stage.from-left {
+  transform: translate3d(-28px, 20px, 0);
+}
+
+.stage.from-right {
+  transform: translate3d(28px, 20px, 0);
+}
+
+.stage.isVisible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ------------------------------ Header ------------------------------ */
+
+.header {
+  position: relative;
+  z-index: 10;
+  max-width: 34ch;
+}
+
+.number {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--is-blue-bright);
+}
+
+.title {
+  margin-top: var(--is-space-2);
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 0.98;
+  font-size: clamp(1.4rem, 2.6vw, 2.1rem);
+  color: var(--is-white);
+}
+
+.description {
+  margin-top: var(--is-space-3);
+  color: var(--is-silver);
+  font-size: 0.98rem;
+  max-width: 30ch;
+}
+
+/* ------------------------------ Visuals ------------------------------ */
+
+.visuals {
+  position: relative;
+  z-index: 1;
+  margin-top: var(--is-space-6);
+  width: min(100%, 360px);
+  overflow: visible;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .visuals {
+    width: min(88%, 340px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .visuals {
+    width: clamp(220px, 19vw, 300px);
+  }
+}
+
+.visualWrap {
+  position: relative;
+  margin: 0;
+  transition: transform var(--is-dur-base) var(--is-ease),
+    filter var(--is-dur-base) var(--is-ease);
+}
+
+.visualImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: saturate(1.02);
+}
+
+@media (hover: hover) {
+  .visualWrap:hover {
+    z-index: 8;
+    filter: brightness(1.12);
+  }
+
+  .visualWrap:hover .hoverLabel {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mainVisual {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.secondaryVisual {
+  position: absolute;
+  z-index: 3;
+  width: 56%;
+  right: -8%;
+  bottom: clamp(-70px, -12%, -30px);
+  transform: rotate(var(--rotate, 0deg));
+}
+
+@media (hover: hover) {
+  .secondaryVisual:hover {
+    transform: rotate(var(--rotate, 0deg)) scale(1.035);
+  }
+}
+
+.extraVisual {
+  position: absolute;
+  width: 40%;
+  z-index: 4;
+  transform: rotate(var(--rotate, 0deg));
+}
+
+.extraVisual:nth-of-type(1) {
+  top: -8%;
+  left: -14%;
+}
+
+.extraVisual:nth-of-type(2) {
+  bottom: -10%;
+  left: 30%;
+}
+
+@media (hover: hover) {
+  .extraVisual:hover {
+    transform: rotate(var(--rotate, 0deg)) scale(1.045);
+  }
+}
+
+.hoverLabel {
+  position: absolute;
+  left: var(--is-space-3);
+  bottom: var(--is-space-3);
+  z-index: 2;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--is-white);
+  background: rgba(3, 5, 7, 0.6);
+  padding: 4px 8px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity var(--is-dur-base) var(--is-ease),
+    transform var(--is-dur-base) var(--is-ease);
+  pointer-events: none;
+}
+
+/* Mirror the overlap/extras for the right-hand stage so nothing runs off-screen. */
+[data-stage="cultural-impact"] .secondaryVisual {
+  right: auto;
+  left: -8%;
+}
+
+[data-stage="cultural-impact"] .extraVisual:nth-of-type(1) {
+  left: auto;
+  right: -14%;
+}
+
+/* ------------------------------- Notes ------------------------------- */
+
+.note {
+  position: absolute;
+  z-index: 5;
+  width: 32%;
+  min-width: 88px;
+  max-width: 170px;
+  transform: rotate(var(--rotate, 0deg));
+  transition: transform var(--is-dur-base) var(--is-ease);
+}
+
+.note:nth-of-type(1) {
+  top: 4%;
+  left: -16%;
+}
+
+.note:nth-of-type(2) {
+  top: 42%;
+  right: -18%;
+}
+
+.note:nth-of-type(3) {
+  bottom: -8%;
+  left: 8%;
+}
+
+[data-stage="cultural-impact"] .note:nth-of-type(1) {
+  right: -16%;
+  left: auto;
+}
+
+[data-stage="cultural-impact"] .note:nth-of-type(2) {
+  left: -18%;
+  right: auto;
+}
+
+@media (hover: hover) {
+  .note:hover {
+    transform: rotate(var(--rotate, 0deg)) scale(1.05);
+  }
+}
+
+.noteImage {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Keep mobile/tablet DOM light: hide the desktop-only extras until 1024px,
+   native lazy-loading means a display:none image never fetches. */
+.minDesktop {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .minDesktop {
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .visualWrap,
+  .note {
+    transition: none;
+  }
+}
