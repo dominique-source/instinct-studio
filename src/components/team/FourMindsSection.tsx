@@ -2,28 +2,37 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import styles from "./TeamFrequencySection.module.css";
-import { TeamMember } from "./TeamMember";
+import styles from "./FourMindsSection.module.css";
+import { TeamMember, type FourMindsMember } from "./TeamMember";
 import { FrequencySignal } from "./FrequencySignal";
 import { FrequencyLens } from "./FrequencyLens";
 import { useInView } from "@/lib/useInView";
 import { usePointerField } from "@/lib/usePointerField";
+import { founders, resident } from "@/data/team";
 import {
-  teamEyebrow,
-  teamHeadlineLine1,
-  teamHeadlineLine2,
-  teamSupportingStatement,
-  teamCompletionLine,
-  teamFrequencyMembers,
-  teamSignatureNotes,
-  type TeamFrequencyMember,
-} from "@/data/team-frequency";
+  fourMindsEyebrow,
+  fourMindsHeadlineLine1,
+  fourMindsHeadlineLine2,
+  fourMindsSupportingStatement,
+  fourMindsCompletionLine,
+  fourMindsVisualsById,
+  fourMindsSignatureNotes,
+  type FourMindsMemberId,
+} from "@/data/four-minds";
 
-export function TeamFrequencySection() {
+// Dominique + Stefan + Neil (the founders) and Youri (the resident) belong
+// to one composition — see the maquette: Youri is never a separate strip
+// underneath the other three.
+const fourMindsMembers: FourMindsMember[] = [...founders, resident].map((member) => ({
+  ...member,
+  ...fourMindsVisualsById[member.id as FourMindsMemberId],
+}));
+
+export function FourMindsSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const { ref: introRef, inView: introVisible } = useInView<HTMLDivElement>(0.3);
 
-  const [activeId, setActiveId] = useState<TeamFrequencyMember["id"] | null>(null);
+  const [activeId, setActiveId] = useState<FourMindsMemberId | null>(null);
   const activatedRef = useRef<Set<string>>(new Set());
   const [completed, setCompleted] = useState(false);
   const [flashCompletion, setFlashCompletion] = useState(false);
@@ -32,11 +41,11 @@ export function TeamFrequencySection() {
   const registerGravity = usePointerField(sectionRef, 900);
 
   const activate = useCallback(
-    (id: TeamFrequencyMember["id"]) => {
+    (id: FourMindsMemberId) => {
       setActiveId(id);
       if (completed) return;
       activatedRef.current.add(id);
-      if (activatedRef.current.size === teamFrequencyMembers.length) {
+      if (activatedRef.current.size === fourMindsMembers.length) {
         setCompleted(true);
         setFlashCompletion(true);
         flashTimeout.current = setTimeout(() => setFlashCompletion(false), 1000);
@@ -53,15 +62,15 @@ export function TeamFrequencySection() {
   // register/cleanup on the pointer field for no reason).
   const gravityRefs = useMemo(() => {
     const entries = {} as Record<
-      TeamFrequencyMember["id"],
+      FourMindsMemberId,
       {
         portrait: (node: HTMLDivElement | null) => void;
         film: (node: HTMLDivElement | null) => void;
         note: (node: HTMLDivElement | null) => void;
       }
     >;
-    for (const member of teamFrequencyMembers) {
-      entries[member.id] = {
+    for (const member of fourMindsMembers) {
+      entries[member.id as FourMindsMemberId] = {
         portrait: (node) => registerGravity(node, 3),
         film: (node) => registerGravity(node, 6),
         note: (node) => registerGravity(node, 4, 2),
@@ -81,29 +90,29 @@ export function TeamFrequencySection() {
     };
   }, []);
 
-  const topSignature = teamSignatureNotes.filter((n) => n.position === "top-left");
-  const centerSignature = teamSignatureNotes.find((n) => n.position === "center");
-  const bottomLeft = teamSignatureNotes.find((n) => n.position === "bottom-left");
-  const bottomRight = teamSignatureNotes.find((n) => n.position === "bottom-right");
+  const topSignature = fourMindsSignatureNotes.filter((n) => n.position === "top-left");
+  const centerSignature = fourMindsSignatureNotes.find((n) => n.position === "center");
+  const bottomLeft = fourMindsSignatureNotes.find((n) => n.position === "bottom-left");
+  const bottomRight = fourMindsSignatureNotes.find((n) => n.position === "bottom-right");
 
   return (
     <section
       ref={sectionRef}
       className={`section ${styles.section}`}
-      aria-labelledby="team-frequency-heading"
+      aria-labelledby="four-minds-heading"
     >
       <div className="container">
         <div ref={introRef} className={`${styles.intro} ${introVisible ? styles.isVisible : ""}`}>
-          <p className="eyebrow">{teamEyebrow}</p>
-          <h2 id="team-frequency-heading" className={`display ${styles.headline}`}>
-            <span className={styles.line1}>{teamHeadlineLine1}</span>
+          <p className="eyebrow">{fourMindsEyebrow}</p>
+          <h2 id="four-minds-heading" className={`display ${styles.headline}`}>
+            <span className={styles.line1}>{fourMindsHeadlineLine1}</span>
             <span className={`${styles.line2} ${flashCompletion ? styles.flash : ""}`}>
-              {teamHeadlineLine2}
+              {fourMindsHeadlineLine2}
             </span>
           </h2>
-          <p className={styles.supportingLine}>{teamSupportingStatement}</p>
+          <p className={styles.supportingLine}>{fourMindsSupportingStatement}</p>
           <p className={`${styles.completionLine} ${completed ? styles.revealed : ""}`} aria-live="polite">
-            {completed ? teamCompletionLine : ""}
+            {completed ? fourMindsCompletionLine : ""}
           </p>
         </div>
 
@@ -127,18 +136,18 @@ export function TeamFrequencySection() {
             flashCompletion={flashCompletion}
             gravityRef={signalGravityRef}
           />
-          <FrequencyLens sectionRef={sectionRef} />
+          <FrequencyLens sectionRef={sectionRef} members={fourMindsMembers} />
 
-          {teamFrequencyMembers.map((member) => (
+          {fourMindsMembers.map((member) => (
             <TeamMember
               key={member.id}
               member={member}
               isActive={activeId === member.id}
-              onActivate={() => activate(member.id)}
+              onActivate={() => activate(member.id as FourMindsMemberId)}
               onDeactivate={deactivate}
-              gravityRef={gravityRefs[member.id].portrait}
-              filmGravityRef={gravityRefs[member.id].film}
-              noteGravityRef={gravityRefs[member.id].note}
+              gravityRef={gravityRefs[member.id as FourMindsMemberId].portrait}
+              filmGravityRef={gravityRefs[member.id as FourMindsMemberId].film}
+              noteGravityRef={gravityRefs[member.id as FourMindsMemberId].note}
             />
           ))}
 
@@ -182,9 +191,8 @@ export function TeamFrequencySection() {
         </div>
 
         <p className="sr-only">
-          Four minds, one frequency: Dominique Soucy, the instinct; Stefan Szary, the image; Neil
-          Frisby, the signal; and Youri Hainz, the disruption — different perspectives working at
-          one creative frequency.
+          Four minds, one frequency: {fourMindsMembers.map((m) => `${m.name}, ${m.title}`).join("; ")} —
+          different perspectives working at one creative frequency.
         </p>
       </div>
     </section>

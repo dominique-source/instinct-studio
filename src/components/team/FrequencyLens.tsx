@@ -4,8 +4,8 @@ import Image from "next/image";
 import { useEffect, useRef } from "react";
 import styles from "./FrequencyLens.module.css";
 import { prefersReducedMotion } from "@/lib/motion";
-import { teamFrequencyMembers } from "@/data/team-frequency";
-import sectionStyles from "./TeamFrequencySection.module.css";
+import type { FourMindsMember } from "./TeamMember";
+import sectionStyles from "./FourMindsSection.module.css";
 
 /**
  * The pointer-controlled "process" layer: grayscale, high-contrast portrait
@@ -14,7 +14,13 @@ import sectionStyles from "./TeamFrequencySection.module.css";
  * mask that follows the pointer. Desktop/laptop only (>=900px); disabled
  * under prefers-reduced-motion.
  */
-export function FrequencyLens({ sectionRef }: { sectionRef: React.RefObject<HTMLElement | null> }) {
+export function FrequencyLens({
+  sectionRef,
+  members,
+}: {
+  sectionRef: React.RefObject<HTMLElement | null>;
+  members: FourMindsMember[];
+}) {
   const layerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -64,7 +70,7 @@ export function FrequencyLens({ sectionRef }: { sectionRef: React.RefObject<HTML
 
   return (
     <div ref={layerRef} className={styles.processLayer} aria-hidden="true">
-      {teamFrequencyMembers.map((member) => (
+      {members.map((member) => (
         <div key={member.id} data-member={member.id} className={sectionStyles.memberSlot}>
           <Image
             src={member.portraitSrc}

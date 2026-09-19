@@ -53,10 +53,8 @@ export const resident: TeamMember = {
   name: "Youri Hainz",
   role: "resident",
   title: "Art Director in Residence",
-  shortText:
-    "Youri brings a resident creative voice into the studio and helps turn active projects into living visual stories.",
-  longText:
-    "Youri brings a resident creative voice into the studio and helps turn active projects into living visual stories.",
+  shortText: "Youri transforms active projects into living visual stories.",
+  longText: "Youri transforms active projects into living visual stories.",
   quote: [],
   portraitSrc: "/assets/team/youri-hainz.jpeg",
 };

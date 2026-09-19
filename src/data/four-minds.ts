@@ -1,18 +1,20 @@
 /**
  * "Four Minds. One Frequency." — the homepage Team section.
- * Source of truth: instinct-team-four-minds-assets/00-maquette/ and
- * 05-reference/. Real portraits are the ones already used sitewide
- * (src/data/team.ts) — the ZIP's portrait-*-reference.png crops are
- * composition references only and are never used in production.
+ * Source of truth: the approved maquette and animation-concept archived at
+ * public/media/team-frequency/reference/. Real portraits and the essential
+ * name/role/description copy come from src/data/team.ts (the same source
+ * the Studio page uses) — the ZIP's portrait-*-reference.png crops
+ * (archived at public/media/team-frequency/profiles/) are composition
+ * references only and are never used in production.
  */
 
-export const teamEyebrow = "PEOPLE × STORY × MOTION";
-export const teamHeadlineLine1 = "FOUR MINDS.";
-export const teamHeadlineLine2 = "ONE FREQUENCY.";
-export const teamSupportingStatement = "Different perspectives. A higher frequency.";
-export const teamCompletionLine = "DIFFERENT MINDS. ONE CREATIVE FORCE.";
+export const fourMindsEyebrow = "PEOPLE × STORY × MOTION";
+export const fourMindsHeadlineLine1 = "FOUR MINDS.";
+export const fourMindsHeadlineLine2 = "ONE FREQUENCY.";
+export const fourMindsSupportingStatement = "Different perspectives. A higher frequency.";
+export const fourMindsCompletionLine = "DIFFERENT MINDS. ONE CREATIVE FORCE.";
 
-const FILM = "/media/team-frequency/film";
+const CINEMATIC = "/media/team-frequency/cinematic";
 const NOTES = "/media/team-frequency/notes";
 
 export interface FrequencyAsset {
@@ -24,43 +26,38 @@ export interface FrequencyAsset {
   rotate?: number;
 }
 
-export interface TeamFrequencyMember {
-  id: "dominique" | "stefan" | "neil" | "youri";
-  name: string;
-  archetype: string;
-  roleLabel?: string;
-  shortStatement: string;
-  description: string;
-  /** Live prompt revealed only on activation — see integration-concept.md's per-person layer. */
-  activationPrompt: string;
-  portraitSrc: string;
+export type FourMindsMemberId = "dominique-soucy" | "stefan-szary" | "neil-frisby" | "youri-hainz";
+
+/**
+ * Presentation/interaction layer only — keyed by src/data/team.ts's member
+ * ids. Name, title (role) and shortText (description) stay single-sourced
+ * from that file instead of being duplicated here.
+ */
+export interface FourMindsVisuals {
+  /** Intrinsic size of the portrait file at src/data/team.ts's portraitSrc, for next/image. */
   portraitWidth: number;
   portraitHeight: number;
+  /** Live prompt revealed only on activation — see reference/animation-concept.md's per-person layer. */
+  activationPrompt: string;
   film: FrequencyAsset;
   extraFilm?: FrequencyAsset;
   note: FrequencyAsset;
   extraNote?: FrequencyAsset;
 }
 
-export const teamFrequencyMembers: TeamFrequencyMember[] = [
-  {
-    id: "dominique",
-    name: "Dominique Soucy",
-    archetype: "THE INSTINCT",
-    shortStatement: "Find the tension.",
-    description: "Dominique finds the human tension and invents the world around it.",
-    activationPrompt: "What is the tension?",
-    portraitSrc: "/assets/team/dominique-soucy.png",
+export const fourMindsVisualsById: Record<FourMindsMemberId, FourMindsVisuals> = {
+  "dominique-soucy": {
     portraitWidth: 2000,
     portraitHeight: 2000,
+    activationPrompt: "What is the tension?",
     film: {
-      src: `${FILM}/film-action-left.png`,
+      src: `${CINEMATIC}/film-action-left.png`,
       width: 405,
       height: 250,
       alt: "Athlete in motion, a sports movement film still",
     },
     extraFilm: {
-      src: `${FILM}/film-eye-bottom.png`,
+      src: `${CINEMATIC}/film-eye-bottom.png`,
       width: 430,
       height: 220,
       alt: "Close contact-sheet fragment of an eye",
@@ -75,18 +72,12 @@ export const teamFrequencyMembers: TeamFrequencyMember[] = [
       rotate: -3,
     },
   },
-  {
-    id: "stefan",
-    name: "Stefan Szary",
-    archetype: "THE IMAGE",
-    shortStatement: "Build the image.",
-    description: "Stefan finds the human truth, then builds its cinematic language.",
-    activationPrompt: "Same truth. A sharper frame.",
-    portraitSrc: "/assets/team/stefan-szary.jpeg",
+  "stefan-szary": {
     portraitWidth: 401,
     portraitHeight: 401,
+    activationPrompt: "Same truth. A sharper frame.",
     film: {
-      src: `${FILM}/film-landscape-stefan.png`,
+      src: `${CINEMATIC}/film-landscape-stefan.png`,
       width: 340,
       height: 220,
       alt: "Dramatic cinematic landscape film still",
@@ -100,18 +91,12 @@ export const teamFrequencyMembers: TeamFrequencyMember[] = [
       rotate: 2,
     },
   },
-  {
-    id: "neil",
-    name: "Neil Frisby",
-    archetype: "THE SIGNAL",
-    shortStatement: "Make it clear.",
-    description: "Neil turns complex thinking into the idea people remember.",
-    activationPrompt: "One idea. No noise.",
-    portraitSrc: "/assets/team/neil-frisby.png",
+  "neil-frisby": {
     portraitWidth: 2000,
     portraitHeight: 2000,
+    activationPrompt: "One idea. No noise.",
     film: {
-      src: `${FILM}/film-city-neil.png`,
+      src: `${CINEMATIC}/film-city-neil.png`,
       width: 330,
       height: 300,
       alt: "City skyline film still",
@@ -125,25 +110,18 @@ export const teamFrequencyMembers: TeamFrequencyMember[] = [
       rotate: -2,
     },
   },
-  {
-    id: "youri",
-    name: "Youri Hainz",
-    archetype: "THE DISRUPTION",
-    roleLabel: "ART DIRECTOR IN RESIDENCE",
-    shortStatement: "Break the frame.",
-    description: "Youri introduces the unexpected visual direction that moves the idea forward.",
-    activationPrompt: "Same idea. New shape.",
-    portraitSrc: "/assets/team/youri-hainz.jpeg",
+  "youri-hainz": {
     portraitWidth: 800,
     portraitHeight: 800,
+    activationPrompt: "Same idea. New shape.",
     film: {
-      src: `${FILM}/film-parkour-top-right.png`,
+      src: `${CINEMATIC}/film-parkour-top-right.png`,
       width: 430,
       height: 285,
       alt: "Parkour athlete jumping between rooftops, a movement film still",
     },
     extraFilm: {
-      src: `${FILM}/film-silhouette-youri.png`,
+      src: `${CINEMATIC}/film-silhouette-youri.png`,
       width: 255,
       height: 320,
       alt: "Silhouette portrait study",
@@ -166,19 +144,10 @@ export const teamFrequencyMembers: TeamFrequencyMember[] = [
       rotate: -2,
     },
   },
-];
-
-/** Extra film reserved for Youri's right-side column at desktop only. */
-export const youriRunnerFragment: FrequencyAsset = {
-  src: `${FILM}/film-runner-bottom-right.png`,
-  width: 460,
-  height: 245,
-  alt: "Runner film still",
-  rotate: -2,
 };
 
 /** Section-wide decorative flourishes, not tied to one person. */
-export const teamSignatureNotes: {
+export const fourMindsSignatureNotes: {
   position: "top-left" | "center" | "bottom-left" | "bottom-right";
   asset: FrequencyAsset;
 }[] = [

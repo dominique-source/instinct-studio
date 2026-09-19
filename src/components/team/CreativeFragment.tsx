@@ -4,7 +4,7 @@ import type { CSSProperties } from "react";
 import Image from "next/image";
 import styles from "./CreativeFragment.module.css";
 import { useInView } from "@/lib/useInView";
-import type { FrequencyAsset } from "@/data/team-frequency";
+import type { FrequencyAsset } from "@/data/four-minds";
 
 export function CreativeFragment({
   asset,

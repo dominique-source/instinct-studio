@@ -3,7 +3,7 @@
 import styles from "./FrequencySignal.module.css";
 import { useInView } from "@/lib/useInView";
 import { usePrefersReducedMotion } from "@/lib/motion";
-import type { TeamFrequencyMember } from "@/data/team-frequency";
+import type { FourMindsMemberId } from "@/data/four-minds";
 
 // viewBox is 0 0 160 90, matching the desktop collage's fixed 16:9 aspect
 // ratio exactly — no preserveAspectRatio stretching, so the stroke and its
@@ -22,18 +22,18 @@ const PATH_D = "M20.8,73.8 L73.6,14.4 L86.4,48.6 L137.6,21.6";
 // below) keeps it unitless — real SVG user units, matching getTotalLength().
 const PATH_LENGTH = 173.9;
 
-const OFFSET_BY_ID: Record<TeamFrequencyMember["id"], string> = {
-  dominique: "0%",
-  stefan: "35%",
-  neil: "62%",
-  youri: "100%",
+const OFFSET_BY_ID: Record<FourMindsMemberId, string> = {
+  "dominique-soucy": "0%",
+  "stefan-szary": "35%",
+  "neil-frisby": "62%",
+  "youri-hainz": "100%",
 };
 
-const PULSE_CLASS_BY_ID: Record<TeamFrequencyMember["id"], string> = {
-  dominique: "roughen",
-  stefan: "aperture",
-  neil: "",
-  youri: "split",
+const PULSE_CLASS_BY_ID: Record<FourMindsMemberId, string> = {
+  "dominique-soucy": "roughen",
+  "stefan-szary": "aperture",
+  "neil-frisby": "",
+  "youri-hainz": "split",
 };
 
 export function FrequencySignal({
@@ -41,7 +41,7 @@ export function FrequencySignal({
   flashCompletion,
   gravityRef,
 }: {
-  activeId: TeamFrequencyMember["id"] | null;
+  activeId: FourMindsMemberId | null;
   flashCompletion: boolean;
   gravityRef?: (node: SVGSVGElement | null) => void;
 }) {
@@ -71,7 +71,7 @@ export function FrequencySignal({
           d={PATH_D}
         />
 
-        {activeId === "neil" && (
+        {activeId === "neil-frisby" && (
           <path
             className={styles.path}
             d="M73.6,48.6 L76.8,45 L80,52.2 L83.2,43.2 L86.4,54 L89.6,46.8 L92.8,48.6 L99.2,48.6"

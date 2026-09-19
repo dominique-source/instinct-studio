@@ -5,7 +5,7 @@ import { FilmCard } from "@/components/FilmCard";
 import { Reveal } from "@/components/Reveal";
 import { ServicesFilmWall } from "@/components/ServicesFilmWall";
 import { CreativeMindSection } from "@/components/creative-mind/CreativeMindSection";
-import { TeamFrequencySection } from "@/components/team-frequency/TeamFrequencySection";
+import { FourMindsSection } from "@/components/team/FourMindsSection";
 import { site } from "@/data/site";
 import { featuredPrimeVideos, secondaryPrimeVideos } from "@/data/prime-videos";
 
@@ -60,7 +60,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <TeamFrequencySection />
+      <FourMindsSection />
 
       <CreativeMindSection />
 

@@ -2,10 +2,13 @@
 
 import Image from "next/image";
 import styles from "./TeamMember.module.css";
-import sectionStyles from "./TeamFrequencySection.module.css";
+import sectionStyles from "./FourMindsSection.module.css";
 import { CreativeFragment } from "./CreativeFragment";
 import { useInView } from "@/lib/useInView";
-import type { TeamFrequencyMember } from "@/data/team-frequency";
+import type { FourMindsVisuals } from "@/data/four-minds";
+import type { TeamMember as TeamMemberData } from "@/data/team";
+
+export type FourMindsMember = TeamMemberData & FourMindsVisuals;
 
 export function TeamMember({
   member,
@@ -16,7 +19,7 @@ export function TeamMember({
   filmGravityRef,
   noteGravityRef,
 }: {
-  member: TeamFrequencyMember;
+  member: FourMindsMember;
   isActive: boolean;
   onActivate: () => void;
   onDeactivate: () => void;
@@ -38,7 +41,7 @@ export function TeamMember({
         type="button"
         className={styles.portraitButton}
         aria-pressed={isActive}
-        aria-label={`${member.name} — ${member.archetype}. ${member.description}`}
+        aria-label={`${member.name} — ${member.title}. ${member.shortText}`}
         onPointerEnter={onActivate}
         onPointerLeave={onDeactivate}
         onFocus={onActivate}
@@ -58,11 +61,9 @@ export function TeamMember({
       </button>
 
       <div className={styles.info}>
-        <p className={`${styles.archetype} ${isActive ? styles.emphasized : ""}`}>{member.archetype}</p>
+        <p className={`${styles.archetype} ${isActive ? styles.emphasized : ""}`}>{member.title}</p>
         <h3 className={styles.name}>{member.name}</h3>
-        {member.roleLabel && <p className={styles.roleLabel}>{member.roleLabel}</p>}
-        <p className={styles.statement}>{member.shortStatement}</p>
-        <p className={styles.description}>{member.description}</p>
+        <p className={styles.description}>{member.shortText}</p>
         <p className={`${styles.prompt} ${isActive ? styles.promptVisible : ""}`} aria-hidden={!isActive}>
           {member.activationPrompt}
         </p>

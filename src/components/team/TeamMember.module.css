@@ -80,23 +80,8 @@
   color: var(--is-white);
 }
 
-.roleLabel {
-  margin-top: var(--is-space-1);
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--is-silver-dim);
-}
-
-.statement {
-  margin-top: var(--is-space-2);
-  color: var(--is-silver);
-  font-size: 0.92rem;
-}
-
 .description {
-  margin-top: var(--is-space-1);
+  margin-top: var(--is-space-2);
   max-width: 32ch;
   color: var(--is-silver-dim);
   font-size: 0.85rem;
@@ -141,66 +126,66 @@
 /* ------------------------ Per-person fragment layout ----------------------- */
 
 @media (min-width: 768px) {
-  [data-member="dominique"] .filmSlot {
+  [data-member="dominique-soucy"] .filmSlot {
     right: -22%;
     bottom: 14%;
     width: 55%;
   }
 
-  [data-member="dominique"] .extraFilmSlot {
+  [data-member="dominique-soucy"] .extraFilmSlot {
     left: -15%;
     bottom: -8%;
     width: 48%;
   }
 
-  [data-member="dominique"] .noteSlot {
+  [data-member="dominique-soucy"] .noteSlot {
     top: -6%;
     left: -14%;
   }
 
-  [data-member="stefan"] .filmSlot {
+  [data-member="stefan-szary"] .filmSlot {
     right: -55%;
     top: 10%;
     width: 75%;
   }
 
-  [data-member="stefan"] .noteSlot {
+  [data-member="stefan-szary"] .noteSlot {
     left: -18%;
     bottom: -16%;
     width: 46%;
   }
 
-  [data-member="neil"] .filmSlot {
+  [data-member="neil-frisby"] .filmSlot {
     right: -42%;
     top: 6%;
     width: 52%;
   }
 
-  [data-member="neil"] .noteSlot {
+  [data-member="neil-frisby"] .noteSlot {
     left: -24%;
     top: 32%;
     width: 46%;
   }
 
-  [data-member="youri"] .filmSlot {
+  [data-member="youri-hainz"] .filmSlot {
     right: -8%;
     top: -18%;
     width: 65%;
   }
 
-  [data-member="youri"] .extraFilmSlot {
+  [data-member="youri-hainz"] .extraFilmSlot {
     left: -28%;
     bottom: -10%;
     width: 42%;
   }
 
-  [data-member="youri"] .noteSlot {
+  [data-member="youri-hainz"] .noteSlot {
     right: -8%;
     bottom: -14%;
     width: 42%;
   }
 
-  [data-member="youri"] .extraNoteSlot {
+  [data-member="youri-hainz"] .extraNoteSlot {
     left: -8%;
     top: 58%;
     width: 40%;

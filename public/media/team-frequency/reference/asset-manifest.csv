@@ -1,0 +1,29 @@
+filename,category,purpose,production_status
+four-minds-one-frequency-maquette.png,maquette,Complete approved desktop composition,reference
+profile-dominique-composition.png,profile,Dominique layout and scale reference,reference
+profile-stefan-composition.png,profile,Stefan layout and scale reference,reference
+profile-neil-composition.png,profile,Neil layout and scale reference,reference
+profile-youri-composition.png,profile,Youri layout and scale reference,reference
+portrait-dominique-reference.png,portrait,Generated portrait crop for composition only,replace_with_real
+portrait-stefan-reference.png,portrait,Generated portrait crop for composition only,replace_with_real
+portrait-neil-reference.png,portrait,Generated portrait crop for composition only,replace_with_real
+portrait-youri-reference.png,portrait,Generated portrait crop for composition only,replace_with_real
+film-action-left.png,cinematic,Left sports movement frame,use
+film-parkour-top-right.png,cinematic,Top-right movement frame,use
+film-landscape-stefan.png,cinematic,Landscape frame near Stefan,use
+film-city-neil.png,cinematic,City frame behind Neil,use
+film-silhouette-youri.png,cinematic,Silhouette frame near Youri,use
+film-runner-bottom-right.png,cinematic,Bottom-right running frame,use
+film-eye-bottom.png,cinematic,Bottom eye contact-sheet fragment,use
+graphic-waveform.png,signal,Frequency waveform reference,use_or_rebuild
+graphic-blue-connection-centre.png,signal,Blue connection path reference,rebuild_svg
+text-people-story-motion.png,text,Top-left creative label,use
+text-different-perspectives.png,text,Team philosophy note,use
+text-build-the-image.png,text,Stefan handwritten note,use
+text-creative-discipline.png,text,Youri creative discipline note,use
+text-find-the-tension.png,text,Dominique handwritten note,use
+text-make-it-clear.png,text,Neil handwritten note,use
+text-break-the-frame.png,text,Youri handwritten note,use
+text-art-sport-story-human.png,text,Creative-values paper note,use
+text-more-than-a-team.png,text,Bottom-left studio statement,use
+text-same-frequency.png,text,Bottom-right studio statement,use
