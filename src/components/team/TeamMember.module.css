@@ -147,9 +147,9 @@
      his own fragments are the only thing that could cover his face — kept
      small and off to the side (never centered over the portrait). */
   [data-member="stefan-szary"] .filmSlot {
-    right: -35%;
+    right: -46%;
     top: 8%;
-    width: 45%;
+    width: 52%;
   }
 
   [data-member="stefan-szary"] .noteSlot {
@@ -163,15 +163,15 @@
   }
 
   [data-member="neil-frisby"] .filmSlot {
-    right: -42%;
-    top: 6%;
-    width: 52%;
+    left: -50%;
+    top: 4%;
+    width: 56%;
   }
 
   [data-member="neil-frisby"] .noteSlot {
-    left: -24%;
-    top: 32%;
-    width: 46%;
+    left: -30%;
+    top: 38%;
+    width: 44%;
   }
 }
 

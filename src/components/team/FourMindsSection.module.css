@@ -197,28 +197,29 @@
     position: absolute;
   }
 
-  /* Dominique -> Stefan -> Neil, left to right. Stefan takes the room
-     Youri used to occupy and carries the strongest z-index so neither
-     neighbour's fragments ever paint over his face. */
+  /* Dominique -> Stefan -> Neil, left to right, overlapping at both seams
+     so the three read as one woven collage instead of three islands.
+     Stefan takes the room Youri used to occupy and carries the strongest
+     z-index so neither neighbour's fragments ever paint over his face. */
   .memberSlot[data-member="dominique-soucy"] {
     left: 0;
     bottom: 0;
-    width: 28%;
+    width: 30%;
     z-index: 4;
   }
 
   .memberSlot[data-member="stefan-szary"] {
-    left: 29%;
-    top: 6%;
-    width: 34%;
+    left: 25%;
+    top: 2%;
+    width: 42%;
     z-index: 8;
   }
 
   .memberSlot[data-member="neil-frisby"] {
-    right: 2%;
-    top: 16%;
-    width: 22%;
-    z-index: 5;
+    right: 0;
+    top: 13%;
+    width: 32%;
+    z-index: 6;
   }
 }
 
