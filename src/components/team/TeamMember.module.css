@@ -44,30 +44,95 @@
   object-fit: cover;
 }
 
-/* The Art Directors slot has no individual to depict — a graphite mark
-   stands in for the portrait, keeping the same weight/position in the
-   collage without inventing a face. */
+/* The Art Directors slot has no individual to depict. Instead of a flat
+   placeholder box, it reads as a film title card: a cinematic gradient +
+   grain (the same grain texture as FilmFrame.module.css, for continuity
+   with the rest of the site) with viewfinder registration marks and a
+   bottom-aligned wordmark — the same visual density as a portrait,
+   without inventing a face. */
 .collectiveMark {
+  position: relative;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background: radial-gradient(circle at 50% 40%, var(--is-graphite), var(--is-black-soft));
-  border: 1px solid var(--is-line);
+  align-items: flex-end;
+  padding: var(--is-space-5);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 26% 16%, rgba(59, 130, 255, 0.22), transparent 55%),
+    linear-gradient(165deg, var(--is-graphite) 0%, var(--is-black-soft) 78%);
 }
 
-.collectiveGlyph {
+.collectiveGrain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.08;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.collectiveBracket {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 0 solid var(--is-blue-bright);
+  opacity: 0.55;
+  transition: opacity 320ms var(--is-ease);
+}
+
+.collectiveBracket--tl {
+  top: var(--is-space-4);
+  left: var(--is-space-4);
+  border-top-width: 1.5px;
+  border-left-width: 1.5px;
+}
+
+.collectiveBracket--tr {
+  top: var(--is-space-4);
+  right: var(--is-space-4);
+  border-top-width: 1.5px;
+  border-right-width: 1.5px;
+}
+
+.collectiveBracket--bl {
+  bottom: var(--is-space-4);
+  left: var(--is-space-4);
+  border-bottom-width: 1.5px;
+  border-left-width: 1.5px;
+}
+
+.collectiveBracket--br {
+  bottom: var(--is-space-4);
+  right: var(--is-space-4);
+  border-bottom-width: 1.5px;
+  border-right-width: 1.5px;
+}
+
+.collectiveWordmark {
+  position: relative;
+  z-index: 1;
+  margin: 0;
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: clamp(2.2rem, 5vw, 3.6rem);
-  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 0.92;
+  font-size: clamp(1.8rem, 4.4vw, 2.9rem);
+  color: var(--is-white);
+  transition: transform 320ms var(--is-ease);
+}
+
+.collectiveWordmark span {
+  display: block;
   color: var(--is-blue-bright);
-  opacity: 0.85;
-  transition: opacity 320ms var(--is-ease), text-shadow 320ms var(--is-ease);
 }
 
 @media (hover: hover) {
-  .portraitButton:hover .collectiveGlyph,
-  .portraitButton:focus-visible .collectiveGlyph {
+  .portraitButton:hover .collectiveWordmark,
+  .portraitButton:focus-visible .collectiveWordmark {
+    transform: translateY(-4px);
+  }
+
+  .portraitButton:hover .collectiveBracket,
+  .portraitButton:focus-visible .collectiveBracket {
     opacity: 1;
   }
 }

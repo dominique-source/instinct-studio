@@ -236,10 +236,13 @@
   opacity: 0.45;
 }
 
-/* The Art Directors slot brightens its mark on activation. */
-.collage[data-active="art-directors"] [data-member="art-directors"] .collectiveGlyph {
-  opacity: 1;
+/* The Art Directors slot brightens its title card on activation. */
+.collage[data-active="art-directors"] [data-member="art-directors"] .collectiveWordmark span {
   text-shadow: 0 0 22px rgba(59, 130, 255, 0.75);
+}
+
+.collage[data-active="art-directors"] [data-member="art-directors"] .collectiveBracket {
+  opacity: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {

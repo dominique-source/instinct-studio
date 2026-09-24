@@ -47,9 +47,15 @@ export function CollaboratorsMind({
         onClick={onActivate}
       >
         <div ref={gravityRef} className={`${styles.portraitWrap} ${styles.collectiveMark}`}>
-          <span className={styles.collectiveGlyph} aria-hidden="true">
-            AD
-          </span>
+          <span className={styles.collectiveGrain} aria-hidden="true" />
+          <span className={`${styles.collectiveBracket} ${styles["collectiveBracket--tl"]}`} aria-hidden="true" />
+          <span className={`${styles.collectiveBracket} ${styles["collectiveBracket--tr"]}`} aria-hidden="true" />
+          <span className={`${styles.collectiveBracket} ${styles["collectiveBracket--bl"]}`} aria-hidden="true" />
+          <span className={`${styles.collectiveBracket} ${styles["collectiveBracket--br"]}`} aria-hidden="true" />
+          <p className={styles.collectiveWordmark} aria-hidden="true">
+            ART
+            <span>DIRECTORS</span>
+          </p>
         </div>
       </button>
 
