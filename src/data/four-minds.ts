@@ -7,11 +7,17 @@
  * (archived at public/media/team-frequency/profiles/) are composition
  * references only and are never used in production.
  *
+ * The third "mind" is not a named individual — it represents the
+ * world-class art directors the studio collaborates with on a project
+ * basis (see fourMindsCollective below). It renders with no portrait, no
+ * personal name and no founder/employee framing, in the same visual slot
+ * a third founder previously occupied.
+ *
  * Youri Hainz is temporarily out of this section (not the site — his data
  * stays in src/data/team.ts and his visuals entry stays below) while the
- * composition runs as Dominique -> Stefan -> Neil. Re-adding him later is
- * just adding "youri-hainz" back to FourMindsSection.tsx's member list and
- * extending the signal path/positions.
+ * composition runs as Dominique -> Art Directors -> Neil. Re-adding him
+ * later is just adding "youri-hainz" back to FourMindsSection.tsx's member
+ * list and extending the signal path/positions.
  */
 
 export const fourMindsEyebrow = "PEOPLE × STORY × MOTION";
@@ -32,7 +38,22 @@ export interface FrequencyAsset {
   rotate?: number;
 }
 
-export type FourMindsMemberId = "dominique-soucy" | "stefan-szary" | "neil-frisby" | "youri-hainz";
+export type FourMindsMemberId = "dominique-soucy" | "neil-frisby" | "youri-hainz";
+
+/** The generic, non-personal third slot — see the file-level comment above. */
+export interface FourMindsCollective {
+  eyebrow: string;
+  title: string;
+  body: string;
+  activationPrompt: string;
+}
+
+export const fourMindsCollective: FourMindsCollective = {
+  eyebrow: "Collaborators",
+  title: "World-Class Art Directors",
+  body: "We work with art directors who give each idea its own visual world.",
+  activationPrompt: "A new eye, every project.",
+};
 
 /**
  * Presentation/interaction layer only — keyed by src/data/team.ts's member
@@ -76,25 +97,6 @@ export const fourMindsVisualsById: Record<FourMindsMemberId, FourMindsVisuals> =
       alt: "",
       decorative: true,
       rotate: -3,
-    },
-  },
-  "stefan-szary": {
-    portraitWidth: 401,
-    portraitHeight: 401,
-    activationPrompt: "Same truth. A sharper frame.",
-    film: {
-      src: `${CINEMATIC}/film-landscape-stefan.png`,
-      width: 340,
-      height: 220,
-      alt: "Dramatic cinematic landscape film still",
-    },
-    note: {
-      src: `${NOTES}/text-build-the-image.png`,
-      width: 210,
-      height: 135,
-      alt: "",
-      decorative: true,
-      rotate: 2,
     },
   },
   "neil-frisby": {

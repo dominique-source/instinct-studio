@@ -1,24 +1,13 @@
 import styles from "./ServicesFilmWall.module.css";
 import { FilmFrame } from "./FilmFrame";
-import { StefChapter } from "./StefChapter";
-import { publicFileExists } from "@/lib/media";
-import {
-  servicesTitle,
-  servicesHeadline,
-  servicesSecondaryLine,
-  filmWallBeforeStef,
-  filmWallAfterStef,
-} from "@/data/services";
-import { stefFilms } from "@/data/stef-films";
+import { servicesTitle, servicesHeadline, servicesSecondaryLine, filmWallFrames } from "@/data/services";
 
 export function ServicesFilmWall() {
-  const posterFlags = stefFilms.map((film) => publicFileExists(film.poster));
-  const [wideAndTall, standaloneFull, tallAndWide, closing] = [
-    filmWallAfterStef.filter((f) => f.number === 3 || f.number === 4),
-    filmWallAfterStef.filter((f) => f.number === 5),
-    filmWallAfterStef.filter((f) => f.number === 6 || f.number === 7),
-    filmWallAfterStef.filter((f) => f.number === 8),
-  ];
+  const opening = filmWallFrames.filter((f) => f.number <= 2);
+  const wideAndTall = filmWallFrames.filter((f) => f.number === 3 || f.number === 4);
+  const standaloneFull = filmWallFrames.filter((f) => f.number === 5);
+  const tallAndWide = filmWallFrames.filter((f) => f.number === 6 || f.number === 7);
+  const closing = filmWallFrames.filter((f) => f.number === 8);
 
   return (
     <section className="section" aria-labelledby="services-heading">
@@ -32,11 +21,9 @@ export function ServicesFilmWall() {
         </div>
 
         <div className={styles.wall}>
-          {filmWallBeforeStef.map((frame) => (
+          {opening.map((frame) => (
             <FilmFrame key={frame.number} frame={frame} href="/films" />
           ))}
-
-          <StefChapter posterFlags={posterFlags} />
 
           <div className={styles.pair}>
             {wideAndTall.map((frame) => (

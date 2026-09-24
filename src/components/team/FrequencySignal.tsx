@@ -8,10 +8,10 @@ import type { ActiveMemberId } from "./FourMindsSection";
 // viewBox is 0 0 160 90, matching the desktop collage's fixed 16:9 aspect
 // ratio exactly — no preserveAspectRatio stretching, so the stroke and its
 // joints render true instead of the non-uniform-scale artifacts a "none"
-// viewBox mapping produces. Three stops now: Dominique -> Stefan -> Neil
-// (Youri's leg of the path is removed with him — see four-minds.ts).
-// Points sampled from each portrait's actual rendered torso position in
-// FourMindsSection's three-person desktop layout (left/centre/right).
+// viewBox mapping produces. Three stops now: Dominique -> Art Directors ->
+// Neil (Youri's leg of the path is removed with him — see four-minds.ts).
+// Points sampled from each slot's actual rendered position in
+// FourMindsSection's three-slot desktop layout (left/centre/right).
 const PATH_D = "M17.9,57.3 L68.2,50.3 L135.7,47.4";
 
 // Real geometric length of PATH_D in user units (sum of its two segments).
@@ -27,13 +27,13 @@ const PATH_LENGTH = 118.35;
 
 const OFFSET_BY_ID: Record<ActiveMemberId, string> = {
   "dominique-soucy": "0%",
-  "stefan-szary": "50%",
+  "art-directors": "50%",
   "neil-frisby": "100%",
 };
 
 const PULSE_CLASS_BY_ID: Record<ActiveMemberId, string> = {
   "dominique-soucy": "roughen",
-  "stefan-szary": "aperture",
+  "art-directors": "aperture",
   "neil-frisby": "",
 };
 

@@ -76,9 +76,6 @@ src/
     Reveal.tsx                   scroll-triggered fade-up (respects prefers-reduced-motion)
     ServicesFilmWall.tsx         "What We Create" — the Moving Film Wall (see below)
     FilmFrame.tsx / .module.css  reusable asymmetric wall frame: entrance reveal + parallax + hover
-    StefChapter.tsx / .module.css       "Selected Director's Work" chapter intro + sequence
-    StefFilmFrame.tsx / .module.css     one Stef Szary film frame (number, title, credit, play)
-    VimeoModal.tsx / .module.css        accessible on-site Vimeo playback modal
     creative-mind/               "Inside the Creative Mind" — see below
       CreativeMindSection.tsx / .module.css   top-level section: intro, signature notes, collage
       StageBlock.tsx / .module.css            one of the four stages (number, title, visuals, notes)
@@ -87,17 +84,16 @@ src/
   data/
     prime-videos.ts        the six YouTube videos — see "Prime Videos" below
     team.ts, services.ts, process.ts, site.ts
-    stef-films.ts           the four Stef Szary Vimeo films — see "Moving Film Wall" below
+    four-minds.ts           homepage Team section data, incl. the generic Art Directors collaborators slot
     creative-mind.ts        "Inside the Creative Mind" copy + per-stage asset data
   lib/media.ts             publicFileExists() — used to hide (never placeholder) missing media
   lib/motion.ts            prefersReducedMotion() — shared reduced-motion check
   lib/useInView.ts         shared one-shot IntersectionObserver reveal hook
 public/
   assets/hero/             instinct-studio-hero.png (live), instinct-studio-hero-reference.png (composition reference only, never rendered)
-  assets/team/             real portraits: dominique-soucy.png, stefan-szary.jpeg, neil-frisby.png, youri-hainz.jpeg
+  assets/team/             real portraits: dominique-soucy.png, neil-frisby.png, youri-hainz.jpeg
   media/creative-mind/     film/paper stills + handwritten notes for "Inside the Creative Mind" — see below
   media/posters/           prime-video-01..06.png — the six custom cinematic posters (see mapping table below)
-  media/stef-selected-work/  intended home for the 4 real Vimeo thumbnails (not yet added — see below)
   media/videos/            festival-kaz.mp4 — kept in the repo but never loaded, linked or
                            displayed by the site; the six Prime Videos are YouTube-hosted only
 ```
@@ -105,10 +101,10 @@ public/
 ## Editing content
 
 - **Films (Prime Videos)** — `src/data/prime-videos.ts`.
-- **Team** — `src/data/team.ts` (three founders + the Art Director in
-  Residence).
+- **Team** — `src/data/team.ts` (two founders + the Art Director in
+  Residence) and `src/data/four-minds.ts` (the homepage Team section,
+  including the generic "World-Class Art Directors" collaborators slot).
 - **Services / Moving Film Wall** — `src/data/services.ts`.
-- **Selected Director's Work (Stef Szary films)** — `src/data/stef-films.ts`.
 - **Inside the Creative Mind** — `src/data/creative-mind.ts`.
 - **Process / method** — `src/data/process.ts`.
 - **Site-wide config** (name, taglines, nav, social links, contact email) —
@@ -217,54 +213,10 @@ The homepage services section (`ServicesFilmWall.tsx`) is an asymmetric wall of
 `FilmFrame` components — alternating full/wide/tall sizes, directional
 scroll-reveal, a slight image parallax, a grayscale→color hover, a static
 film-grain overlay, and a "0N/08" frame number. Frame content lives in
-`src/data/services.ts` (`filmWallFrames`, split into `filmWallBeforeStef` /
-`filmWallAfterStef`). Each frame's image is a real photo already used
-elsewhere on the site (the hero photo and the six Prime Video posters) —
-never a generic stock placeholder.
-
-### Selected Director's Work — Stef Szary chapter
-
-After the first two service frames, `StefChapter.tsx` presents four films
-from **Stef Szary's own directing portfolio** (not Instinct Studio
-productions) hosted on Vimeo. Every film frame (`StefFilmFrame.tsx`) carries
-the mandatory credit — "Selected Director's Work" / "Directed by Stef
-Szary" — and playback opens in an accessible on-site modal
-(`VimeoModal.tsx`: focus-trapped, Escape closes, focus restores to the
-trigger, unmounts on close so playback stops, never autoplays, never
-redirects to vimeo.com).
-
-Film data lives in `src/data/stef-films.ts`. Posters are real frames
-supplied directly (not fetched from Vimeo) and copied into stable public
-paths, one per film, each with its own `objectPosition` tuned so the
-subject is never cropped:
-
-```ts
-export const stefFilms: StefFilm[] = [
-  { vimeoId: "1137745395", order: 1, title: "Film 01", poster: "/media/stef-selected-work/stef-film-01-georgia-ellenwood.png", objectPosition: "center center" },
-  { vimeoId: "1070832290", order: 2, title: "Film 02", poster: "/media/stef-selected-work/stef-film-02-snowmobile.png",        objectPosition: "center center" },
-  { vimeoId: "423787947",  order: 3, title: "Film 03", poster: "/media/stef-selected-work/stef-film-03-desert.png",            objectPosition: "65% center" },
-  { vimeoId: "1036039287", order: 4, title: "Film 04", poster: "/media/stef-selected-work/stef-film-04-helly-hansen.png",      objectPosition: "70% center" },
-];
-```
-
-Each poster is shown in full color at all times (no grayscale, no strong
-overlay) via `next/image` with `fill` + `object-fit: cover`, a consistent
-16:9 aspect ratio across all four frames, and a light bottom scrim only for
-text legibility. `StefFilmFrame` still checks `publicFileExists()` and
-falls back to a plain "Film 0N" text panel — never a broken image or a
-generic placeholder — if a poster file is ever missing.
-
-**Known gap — Vimeo titles/durations.** This environment's network policy
-blocks `vimeo.com` (confirmed via both `WebFetch` and a raw `curl` CONNECT,
-`403`), so Vimeo's oEmbed endpoint
-(`https://vimeo.com/api/oembed.json?url=...`) could not be reached to
-confirm real titles or durations for any of the four films. Per spec,
-nothing was guessed: each film shows the required "Film 0N" fallback title
-and no duration badge. To finish this from a machine that can reach Vimeo,
-fetch `https://vimeo.com/api/oembed.json?url=<vimeo-url>` for each film and
-update `title` (and `duration`, formatted `m:ss`) in `stef-films.ts` for any
-whose real title was confirmed — leave any unconfirmed one on its "Film 0N"
-fallback rather than guessing.
+`src/data/services.ts` (`filmWallFrames`, rendered continuously as opening
+frames, two paired rows and two closing frames). Each frame's image is a
+real photo already used elsewhere on the site (the hero photo and the six
+Prime Video posters) — never a generic stock placeholder.
 
 ## Inside the Creative Mind ("How We Think")
 
@@ -384,10 +336,6 @@ variables above in your hosting provider's dashboard.
 
 ## What's still open
 
-- **Stef Szary Vimeo titles/durations** — see "Moving Film Wall" above.
-  `vimeo.com` is blocked by this environment's network egress policy, so all
-  four films still show the "Film 0N" fallback title (real posters are in
-  place).
 - Four of the six Prime Video titles couldn't be reliably confirmed
   (`hPLfmAOFkKc`, `KDz1gF3xGPE`, `N4ec8bJfsoc`, `JgSlbz9942M`) and show as
   "Prime Video 0N" rather than a guessed title. Add the real title to

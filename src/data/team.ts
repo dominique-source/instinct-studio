@@ -25,17 +25,6 @@ export const founders: TeamMember[] = [
     portraitSrc: "/assets/team/dominique-soucy.png",
   },
   {
-    id: "stefan-szary",
-    name: "Stefan Szary",
-    role: "founder",
-    title: "Visual Director and Story Architect",
-    shortText: "Stefan finds the human truth, then builds the image.",
-    longText:
-      "Stefan Szary transforms human values into cinematic images. Working across film, advertising, scripts, concepts and visual development, he begins with the emotional truth behind an athlete, a company or a community. His work explores how visual storytelling and technology can bring people back to movement, presence and genuine human connection.",
-    quote: ["FIND THE HUMAN TRUTH.", "THEN BUILD THE IMAGE."],
-    portraitSrc: "/assets/team/stefan-szary.jpeg",
-  },
-  {
     id: "neil-frisby",
     name: "Neil Frisby",
     role: "founder",

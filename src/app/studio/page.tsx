@@ -3,13 +3,14 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import { ResidentStrip } from "@/components/TeamMemberCard";
 import { founders, resident } from "@/data/team";
+import { fourMindsCollective } from "@/data/four-minds";
 import { site } from "@/data/site";
 import { publicFileExists } from "@/lib/media";
 
 export const metadata: Metadata = {
   title: "Studio",
   description:
-    "Instinct Studio is a creative sports house founded by Dominique Soucy, Stefan Szary and Neil Frisby.",
+    "Instinct Studio is a creative sports house founded by Dominique Soucy and Neil Frisby, working with world-class art directors.",
 };
 
 export default function StudioPage() {
@@ -53,6 +54,12 @@ export default function StudioPage() {
               </article>
             );
           })}
+        </div>
+
+        <div className={styles.collaborators}>
+          <p className="eyebrow">{fourMindsCollective.eyebrow}</p>
+          <h2 className="display display--md">{fourMindsCollective.title}</h2>
+          <p className={`lede ${styles.collaboratorsBody}`}>{fourMindsCollective.body}</p>
         </div>
 
         <div className={styles.residency}>

@@ -156,7 +156,7 @@
   margin-top: var(--is-space-8);
   display: grid;
   row-gap: var(--is-space-9);
-  grid-template-areas: "dominique" "stefan" "neil";
+  grid-template-areas: "dominique" "collective" "neil";
 }
 
 .memberSlot {
@@ -167,8 +167,8 @@
   grid-area: dominique;
 }
 
-.memberSlot[data-member="stefan-szary"] {
-  grid-area: stefan;
+.memberSlot[data-member="art-directors"] {
+  grid-area: collective;
 }
 
 .memberSlot[data-member="neil-frisby"] {
@@ -180,7 +180,7 @@
     column-gap: var(--is-space-7);
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
-      "dominique stefan"
+      "dominique collective"
       "neil neil";
   }
 }
@@ -197,10 +197,11 @@
     position: absolute;
   }
 
-  /* Dominique -> Stefan -> Neil, left to right, overlapping at both seams
-     so the three read as one woven collage instead of three islands.
-     Stefan takes the room Youri used to occupy and carries the strongest
-     z-index so neither neighbour's fragments ever paint over his face. */
+  /* Dominique -> Art Directors -> Neil, left to right, overlapping at both
+     seams so the three read as one woven collage instead of three islands.
+     The Art Directors slot takes the room a third founder used to occupy
+     and carries the strongest z-index so neither neighbour's fragments
+     ever paint over its mark. */
   .memberSlot[data-member="dominique-soucy"] {
     left: 0;
     bottom: 0;
@@ -208,7 +209,7 @@
     z-index: 4;
   }
 
-  .memberSlot[data-member="stefan-szary"] {
+  .memberSlot[data-member="art-directors"] {
     left: 25%;
     top: 2%;
     width: 42%;
@@ -235,9 +236,10 @@
   opacity: 0.45;
 }
 
-/* Stefan's activation sharpens his film fragment. */
-.collage[data-active="stefan-szary"] [data-member="stefan-szary"] .filmSlot img {
-  filter: contrast(1.25) brightness(1.08) saturate(1.05);
+/* The Art Directors slot brightens its mark on activation. */
+.collage[data-active="art-directors"] [data-member="art-directors"] .collectiveGlyph {
+  opacity: 1;
+  text-shadow: 0 0 22px rgba(59, 130, 255, 0.75);
 }
 
 @media (prefers-reduced-motion: reduce) {

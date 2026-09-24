@@ -44,6 +44,34 @@
   object-fit: cover;
 }
 
+/* The Art Directors slot has no individual to depict — a graphite mark
+   stands in for the portrait, keeping the same weight/position in the
+   collage without inventing a face. */
+.collectiveMark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 50% 40%, var(--is-graphite), var(--is-black-soft));
+  border: 1px solid var(--is-line);
+}
+
+.collectiveGlyph {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  letter-spacing: 0.04em;
+  color: var(--is-blue-bright);
+  opacity: 0.85;
+  transition: opacity 320ms var(--is-ease), text-shadow 320ms var(--is-ease);
+}
+
+@media (hover: hover) {
+  .portraitButton:hover .collectiveGlyph,
+  .portraitButton:focus-visible .collectiveGlyph {
+    opacity: 1;
+  }
+}
+
 .info {
   position: relative;
   z-index: 4;
@@ -143,22 +171,7 @@
     left: -14%;
   }
 
-  /* Stefan carries the highest z-index in FourMindsSection.module.css, so
-     his own fragments are the only thing that could cover his face — kept
-     small and off to the side (never centered over the portrait). */
-  [data-member="stefan-szary"] .filmSlot {
-    right: -46%;
-    top: 8%;
-    width: 52%;
-  }
-
-  [data-member="stefan-szary"] .noteSlot {
-    left: -28%;
-    top: 55%;
-    width: 30%;
-  }
-
-  [data-member="stefan-szary"] .portraitWrap {
+  [data-member="art-directors"] .portraitWrap {
     aspect-ratio: 4 / 4.4;
   }
 

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import styles from "./FourMindsSection.module.css";
 import { TeamMember, type FourMindsMember } from "./TeamMember";
+import { CollaboratorsMind } from "./CollaboratorsMind";
 import { FrequencySignal } from "./FrequencySignal";
 import { FrequencyLens } from "./FrequencyLens";
 import { useInView } from "@/lib/useInView";
@@ -17,17 +18,21 @@ import {
   fourMindsCompletionLine,
   fourMindsVisualsById,
   fourMindsSignatureNotes,
+  fourMindsCollective,
   type FourMindsMemberId,
 } from "@/data/four-minds";
 
-/** The three people currently in this composition — see four-minds.ts for why Youri is out. */
-export type ActiveMemberId = Exclude<FourMindsMemberId, "youri-hainz">;
+/** The two named founders in this composition — see four-minds.ts for why Youri is out. */
+type FounderVisualId = Exclude<FourMindsMemberId, "youri-hainz">;
 
-// Dominique, Stefan and Neil (the founders) belong to one composition:
-// Dominique -> Stefan -> Neil, left to right.
+/** Every activatable slot in the collage, named people plus the generic collaborators slot. */
+export type ActiveMemberId = FounderVisualId | "art-directors";
+
+// Dominique and Neil (the founders) flank the generic Art Directors slot:
+// Dominique -> Art Directors -> Neil, left to right.
 const fourMindsMembers: FourMindsMember[] = founders.map((member) => ({
   ...member,
-  ...fourMindsVisualsById[member.id as ActiveMemberId],
+  ...fourMindsVisualsById[member.id as FounderVisualId],
 }));
 
 export function FourMindsSection() {
@@ -42,18 +47,20 @@ export function FourMindsSection() {
 
   const registerGravity = usePointerField(sectionRef, 900);
 
+  const totalSlots = fourMindsMembers.length + 1; // + the Art Directors slot
+
   const activate = useCallback(
     (id: ActiveMemberId) => {
       setActiveId(id);
       if (completed) return;
       activatedRef.current.add(id);
-      if (activatedRef.current.size === fourMindsMembers.length) {
+      if (activatedRef.current.size === totalSlots) {
         setCompleted(true);
         setFlashCompletion(true);
         flashTimeout.current = setTimeout(() => setFlashCompletion(false), 1000);
       }
     },
-    [completed]
+    [completed, totalSlots]
   );
 
   const deactivate = useCallback(() => setActiveId(null), []);
@@ -64,7 +71,7 @@ export function FourMindsSection() {
   // register/cleanup on the pointer field for no reason).
   const gravityRefs = useMemo(() => {
     const entries = {} as Record<
-      ActiveMemberId,
+      FounderVisualId,
       {
         portrait: (node: HTMLDivElement | null) => void;
         film: (node: HTMLDivElement | null) => void;
@@ -72,7 +79,7 @@ export function FourMindsSection() {
       }
     >;
     for (const member of fourMindsMembers) {
-      entries[member.id as ActiveMemberId] = {
+      entries[member.id as FounderVisualId] = {
         portrait: (node) => registerGravity(node, 3),
         film: (node) => registerGravity(node, 6),
         note: (node) => registerGravity(node, 4, 2),
@@ -80,6 +87,11 @@ export function FourMindsSection() {
     }
     return entries;
   }, [registerGravity]);
+
+  const collectiveGravityRef = useCallback(
+    (node: HTMLDivElement | null) => registerGravity(node, 3),
+    [registerGravity]
+  );
 
   const signalGravityRef = useMemo(
     () => (node: SVGSVGElement | null) => registerGravity(node, 5),
@@ -91,6 +103,9 @@ export function FourMindsSection() {
       if (flashTimeout.current) clearTimeout(flashTimeout.current);
     };
   }, []);
+
+  const dominique = fourMindsMembers.find((m) => m.id === "dominique-soucy")!;
+  const neil = fourMindsMembers.find((m) => m.id === "neil-frisby")!;
 
   const topSignature = fourMindsSignatureNotes.filter((n) => n.position === "top-left");
   const centerSignature = fourMindsSignatureNotes.find((n) => n.position === "center");
@@ -140,18 +155,35 @@ export function FourMindsSection() {
           />
           <FrequencyLens sectionRef={sectionRef} members={fourMindsMembers} />
 
-          {fourMindsMembers.map((member) => (
-            <TeamMember
-              key={member.id}
-              member={member}
-              isActive={activeId === member.id}
-              onActivate={() => activate(member.id as ActiveMemberId)}
-              onDeactivate={deactivate}
-              gravityRef={gravityRefs[member.id as ActiveMemberId].portrait}
-              filmGravityRef={gravityRefs[member.id as ActiveMemberId].film}
-              noteGravityRef={gravityRefs[member.id as ActiveMemberId].note}
-            />
-          ))}
+          <TeamMember
+            key={dominique.id}
+            member={dominique}
+            isActive={activeId === dominique.id}
+            onActivate={() => activate(dominique.id as FounderVisualId)}
+            onDeactivate={deactivate}
+            gravityRef={gravityRefs[dominique.id as FounderVisualId].portrait}
+            filmGravityRef={gravityRefs[dominique.id as FounderVisualId].film}
+            noteGravityRef={gravityRefs[dominique.id as FounderVisualId].note}
+          />
+
+          <CollaboratorsMind
+            collective={fourMindsCollective}
+            isActive={activeId === "art-directors"}
+            onActivate={() => activate("art-directors")}
+            onDeactivate={deactivate}
+            gravityRef={collectiveGravityRef}
+          />
+
+          <TeamMember
+            key={neil.id}
+            member={neil}
+            isActive={activeId === neil.id}
+            onActivate={() => activate(neil.id as FounderVisualId)}
+            onDeactivate={deactivate}
+            gravityRef={gravityRefs[neil.id as FounderVisualId].portrait}
+            filmGravityRef={gravityRefs[neil.id as FounderVisualId].film}
+            noteGravityRef={gravityRefs[neil.id as FounderVisualId].note}
+          />
 
           {centerSignature && (
             <Image
@@ -193,8 +225,9 @@ export function FourMindsSection() {
         </div>
 
         <p className="sr-only">
-          Three minds, one instinct: {fourMindsMembers.map((m) => `${m.name}, ${m.title}`).join("; ")} —
-          different perspectives working as one shared instinct.
+          Three minds, one instinct: {dominique.name}, {dominique.title}; {fourMindsCollective.title},{" "}
+          {fourMindsCollective.body}; {neil.name}, {neil.title} — different perspectives working as one
+          shared instinct.
         </p>
       </div>
     </section>

@@ -111,7 +111,3 @@ export const filmWallFrames: FilmWallFrame[] = [
 ];
 
 export const filmWallTotal = TOTAL_FRAMES;
-
-/** Frames 1–2 render before the Stef Szary chapter; the rest render after it. */
-export const filmWallBeforeStef = filmWallFrames.filter((frame) => frame.number <= 2);
-export const filmWallAfterStef = filmWallFrames.filter((frame) => frame.number > 2);
