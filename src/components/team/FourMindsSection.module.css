@@ -186,41 +186,31 @@
 }
 
 @media (min-width: 1024px) {
+  /* Three balanced, non-overlapping columns — Dominique -> Art Directors ->
+     Neil, left to right. Both named people stay fully visible; only their
+     own decorative film/note fragments (see TeamMember.module.css) are
+     allowed to bleed slightly outward. The center column is a little wider
+     to hold the contact sheet, and align-items: end keeps every column's
+     baseline level while letting the taller center panel read as the
+     visual keystone of the three. */
   .collage {
-    position: relative;
-    display: block;
-    aspect-ratio: 16 / 9;
-    min-height: 560px;
+    display: grid;
+    grid-template-columns: 1fr 1.3fr 1fr;
+    grid-template-areas: "dominique collective neil";
+    column-gap: var(--is-space-7);
+    align-items: end;
   }
 
-  .memberSlot {
-    position: absolute;
-  }
-
-  /* Dominique -> Art Directors -> Neil, left to right, overlapping at both
-     seams so the three read as one woven collage instead of three islands.
-     The Art Directors slot takes the room a third founder used to occupy
-     and carries the strongest z-index so neither neighbour's fragments
-     ever paint over its mark. */
   .memberSlot[data-member="dominique-soucy"] {
-    left: 0;
-    bottom: 0;
-    width: 30%;
-    z-index: 4;
+    z-index: 1;
   }
 
   .memberSlot[data-member="art-directors"] {
-    left: 25%;
-    top: 2%;
-    width: 42%;
-    z-index: 8;
+    z-index: 3;
   }
 
   .memberSlot[data-member="neil-frisby"] {
-    right: 0;
-    top: 13%;
-    width: 32%;
-    z-index: 6;
+    z-index: 2;
   }
 }
 
@@ -236,13 +226,9 @@
   opacity: 0.45;
 }
 
-/* The Art Directors slot brightens its title card on activation. */
-.collage[data-active="art-directors"] [data-member="art-directors"] .collectiveWordmark span {
-  text-shadow: 0 0 22px rgba(59, 130, 255, 0.75);
-}
-
-.collage[data-active="art-directors"] [data-member="art-directors"] .collectiveBracket {
-  opacity: 1;
+/* The Art Directors slot brings its contact sheet to full color on activation. */
+.collage[data-active="art-directors"] [data-member="art-directors"] .contactImage {
+  filter: grayscale(0.1) contrast(1.05) brightness(1);
 }
 
 @media (prefers-reduced-motion: reduce) {

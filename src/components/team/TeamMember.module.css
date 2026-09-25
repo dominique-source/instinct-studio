@@ -45,95 +45,57 @@
 }
 
 /* The Art Directors slot has no individual to depict. Instead of a flat
-   placeholder box, it reads as a film title card: a cinematic gradient +
-   grain (the same grain texture as FilmFrame.module.css, for continuity
-   with the rest of the site) with viewfinder registration marks and a
-   bottom-aligned wordmark — the same visual density as a portrait,
-   without inventing a face. */
-.collectiveMark {
+   placeholder box, it's a dense contact sheet of cinematic frames — several
+   distinct visual voices at a glance, standing in for the roster of art
+   directors who join a project according to its story. Frames desaturate
+   to a proof-sheet grayscale by default and pick up color together on
+   hover/focus/activation, the same visual density as a portrait without
+   inventing a face. */
+.contactSheet {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 2px;
+  background: var(--is-line);
+}
+
+.contactFrame {
   position: relative;
-  display: flex;
-  align-items: flex-end;
-  padding: var(--is-space-5);
   overflow: hidden;
-  background:
-    radial-gradient(circle at 26% 16%, rgba(59, 130, 255, 0.22), transparent 55%),
-    linear-gradient(165deg, var(--is-graphite) 0%, var(--is-black-soft) 78%);
+  background: var(--is-black-soft);
 }
 
-.collectiveGrain {
+.contactImage {
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.05) brightness(0.82);
+  transition: filter 420ms var(--is-ease), transform 420ms var(--is-ease);
+}
+
+.contactIndex {
   position: absolute;
-  inset: 0;
-  opacity: 0.08;
-  mix-blend-mode: overlay;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-.collectiveBracket {
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  border: 0 solid var(--is-blue-bright);
-  opacity: 0.55;
-  transition: opacity 320ms var(--is-ease);
-}
-
-.collectiveBracket--tl {
-  top: var(--is-space-4);
-  left: var(--is-space-4);
-  border-top-width: 1.5px;
-  border-left-width: 1.5px;
-}
-
-.collectiveBracket--tr {
-  top: var(--is-space-4);
-  right: var(--is-space-4);
-  border-top-width: 1.5px;
-  border-right-width: 1.5px;
-}
-
-.collectiveBracket--bl {
-  bottom: var(--is-space-4);
-  left: var(--is-space-4);
-  border-bottom-width: 1.5px;
-  border-left-width: 1.5px;
-}
-
-.collectiveBracket--br {
-  bottom: var(--is-space-4);
-  right: var(--is-space-4);
-  border-bottom-width: 1.5px;
-  border-right-width: 1.5px;
-}
-
-.collectiveWordmark {
-  position: relative;
-  z-index: 1;
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: 900;
-  text-transform: uppercase;
-  line-height: 0.92;
-  font-size: clamp(1.8rem, 4.4vw, 2.9rem);
+  bottom: 3px;
+  left: 5px;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.06em;
   color: var(--is-white);
-  transition: transform 320ms var(--is-ease);
-}
-
-.collectiveWordmark span {
-  display: block;
-  color: var(--is-blue-bright);
+  opacity: 0.8;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
+  pointer-events: none;
 }
 
 @media (hover: hover) {
-  .portraitButton:hover .collectiveWordmark,
-  .portraitButton:focus-visible .collectiveWordmark {
-    transform: translateY(-4px);
+  .portraitButton:hover .contactImage,
+  .portraitButton:focus-visible .contactImage {
+    filter: grayscale(0.1) contrast(1.05) brightness(1);
+    transform: scale(1.05);
   }
+}
 
-  .portraitButton:hover .collectiveBracket,
-  .portraitButton:focus-visible .collectiveBracket {
-    opacity: 1;
+@media (max-width: 479px) {
+  .contactSheet {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
   }
 }
 
@@ -250,6 +212,24 @@
     left: -30%;
     top: 38%;
     width: 44%;
+  }
+}
+
+/* At tablet widths Neil's slot spans the full row (see FourMindsSection's
+   tablet grid-template-areas) — the default 4/5 portrait ratio at that
+   width would blow up to an oversized ~950px-tall crop, so it gets a wide
+   cinematic ratio here instead. */
+@media (min-width: 768px) and (max-width: 1023px) {
+  [data-member="neil-frisby"] .portraitWrap {
+    aspect-ratio: 16 / 8;
+  }
+
+  /* Neil's film fragment is offset as a percentage of his own slot, tuned
+     for a narrow portrait column — at this full-width row it would bleed
+     off the left edge of the viewport, so it's dropped at this breakpoint
+     only (same pattern as the mobile extraFilmSlot/extraNoteSlot hides). */
+  [data-member="neil-frisby"] .filmSlot {
+    display: none;
   }
 }
 

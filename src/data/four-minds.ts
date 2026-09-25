@@ -9,9 +9,12 @@
  *
  * The third "mind" is not a named individual — it represents the
  * world-class art directors the studio collaborates with on a project
- * basis (see fourMindsCollective below). It renders with no portrait, no
- * personal name and no founder/employee framing, in the same visual slot
- * a third founder previously occupied.
+ * basis (see fourMindsCollective below). It renders as a dense contact
+ * sheet of cinematic frames (real images already used elsewhere in the
+ * site, purely as decorative texture — never a credited or named
+ * individual's portfolio) instead of a portrait, with no personal name
+ * and no founder/employee framing, in the same visual slot a third
+ * founder previously occupied.
  *
  * Youri Hainz is temporarily out of this section (not the site — his data
  * stays in src/data/team.ts and his visuals entry stays below) while the
@@ -46,13 +49,31 @@ export interface FourMindsCollective {
   title: string;
   body: string;
   activationPrompt: string;
+  /** Decorative-only contact-sheet frames — see the file-level comment above. */
+  contactSheet: readonly string[];
 }
+
+/**
+ * Six distinct frames for the Art Directors contact sheet — real
+ * photography already used elsewhere on the site, reused here purely as
+ * abstract texture representing a range of visual voices. None of these
+ * are any one person's credited work.
+ */
+const CONTACT_SHEET_FRAMES = [
+  `${CINEMATIC}/film-runner-bottom-right.png`,
+  "/media/posters/prime-video-02.png",
+  "/media/posters/prime-video-03.png",
+  "/media/posters/prime-video-04.png",
+  "/media/posters/prime-video-05.png",
+  "/media/posters/prime-video-06.png",
+] as const;
 
 export const fourMindsCollective: FourMindsCollective = {
   eyebrow: "Collaborators",
   title: "World-Class Art Directors",
-  body: "We work with art directors who give each idea its own visual world.",
+  body: "A creative roster assembled around each story.",
   activationPrompt: "A new eye, every project.",
+  contactSheet: CONTACT_SHEET_FRAMES,
 };
 
 /**

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import styles from "./TeamMember.module.css";
 import sectionStyles from "./FourMindsSection.module.css";
 import { useInView } from "@/lib/useInView";
@@ -8,9 +9,12 @@ import type { FourMindsCollective } from "@/data/four-minds";
 /**
  * The third "mind" in the homepage collage — deliberately not a person.
  * Same interaction/gravity wiring as TeamMember (hover/focus reveals a
- * prompt, the portrait area feeds the pointer-field), but the portrait
- * slot renders a typographic mark instead of a photo, since there is no
- * individual to depict — see four-minds.ts's file-level comment.
+ * prompt, the portrait area feeds the pointer-field), but instead of a
+ * single portrait it shows a dense contact sheet of cinematic frames —
+ * several distinct visual voices at a glance, standing in for the roster
+ * of art directors who join a project according to its story. Every frame
+ * is decorative texture (see four-minds.ts) — never a credited or named
+ * individual's portrait or portfolio.
  */
 export function CollaboratorsMind({
   collective,
@@ -46,16 +50,23 @@ export function CollaboratorsMind({
         onBlur={onDeactivate}
         onClick={onActivate}
       >
-        <div ref={gravityRef} className={`${styles.portraitWrap} ${styles.collectiveMark}`}>
-          <span className={styles.collectiveGrain} aria-hidden="true" />
-          <span className={`${styles.collectiveBracket} ${styles["collectiveBracket--tl"]}`} aria-hidden="true" />
-          <span className={`${styles.collectiveBracket} ${styles["collectiveBracket--tr"]}`} aria-hidden="true" />
-          <span className={`${styles.collectiveBracket} ${styles["collectiveBracket--bl"]}`} aria-hidden="true" />
-          <span className={`${styles.collectiveBracket} ${styles["collectiveBracket--br"]}`} aria-hidden="true" />
-          <p className={styles.collectiveWordmark} aria-hidden="true">
-            ART
-            <span>DIRECTORS</span>
-          </p>
+        <div
+          ref={gravityRef}
+          className={`${styles.portraitWrap} ${styles.contactSheet}`}
+          aria-hidden="true"
+        >
+          {collective.contactSheet.map((src, i) => (
+            <div key={src} className={styles.contactFrame}>
+              <Image
+                src={src}
+                alt=""
+                fill
+                sizes="(min-width: 1024px) 14vw, 30vw"
+                className={styles.contactImage}
+              />
+              <span className={styles.contactIndex}>{String(i + 1).padStart(2, "0")}</span>
+            </div>
+          ))}
         </div>
       </button>
 
