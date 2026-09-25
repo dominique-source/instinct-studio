@@ -92,26 +92,50 @@
   padding-block: var(--is-space-8) var(--is-space-9);
 }
 
+/* Longer, two-sentence title: sized down from the old display--xl scale (built
+   for a 4-word line) so both sentences stay legible as whole lines from
+   mobile to desktop instead of overwhelming the hero. */
 .headline {
   max-width: 100%;
+  font-size: clamp(1.9rem, 5.2vw, 4rem);
+  line-height: 1.1;
 }
 
 .highlight {
   color: var(--is-blue-bright);
 }
 
-.supporting {
-  margin-top: var(--is-space-4);
+/* ------------------------------ Manifesto ------------------------------ */
+
+.manifesto {
+  position: relative;
+  background: var(--is-black);
+  padding-block: var(--is-space-9) var(--is-space-10);
+}
+
+.manifestoInner {
+  max-width: 62ch;
+  margin-inline: auto;
+}
+
+.manifestoParagraph {
   font-family: var(--font-sans);
-  font-size: clamp(0.9rem, 1.4vw, 1.05rem);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+  line-height: 1.65;
   color: var(--is-silver);
-  max-width: 40ch;
+}
+
+.manifestoParagraph:first-child {
+  color: var(--is-white);
+  font-size: clamp(1.15rem, 2.1vw, 1.5rem);
+}
+
+.manifestoParagraph + .manifestoParagraph {
+  margin-top: var(--is-space-6);
 }
 
 .actions {
-  margin-top: var(--is-space-6);
+  margin-top: var(--is-space-8);
   display: flex;
   flex-wrap: wrap;
   gap: var(--is-space-4);

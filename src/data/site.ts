@@ -8,7 +8,6 @@ export const site = {
   positioning:
     "Cinematic films, original concepts and immersive experiences centred on athletes.",
   signature: "THREE MINDS. ONE INSTINCT.",
-  secondaryLine: "We film the instinct behind the athlete.",
   // Short homepage statement, distinct from the longer Studio-page positioning.
   statement: ["SPORT CREATES THE MOMENT.", "WE FIND THE STORY INSIDE IT."],
   // Domain is not yet assigned — set NEXT_PUBLIC_SITE_URL once one is.
@@ -43,3 +42,23 @@ export const socialLinks = {
 export const contactEmail = "hello@instinctstudio.studio";
 
 export const privacyPolicyHref = "/privacy";
+
+// The homepage hero manifesto, below the hero title. Each entry is either a
+// single-line paragraph, or a group of short lines meant to break within one
+// paragraph (line breaks, not paragraph breaks). Exact wording, punctuation
+// and line grouping are approved copy — do not shorten, rewrite or reorder.
+export const heroManifesto = [
+  "Every athlete has a story beneath the surface.",
+  [
+    "The choices no one sees.",
+    "The setbacks that shape them.",
+    "The split-second decisions that change everything.",
+  ],
+  [
+    "It isn’t just talent.",
+    "It isn’t just ambition.",
+    "It’s something deeper. Instinct.",
+  ],
+  "Instinct Studios create powerful, human stories in short and long form that reveal what drives athletes, teams and the world of sport, from defining moments to the journeys behind them.",
+  "Because the instinct that drives them is the same instinct that drives us.",
+] as const;
